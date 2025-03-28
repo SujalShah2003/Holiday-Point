@@ -1,4 +1,4 @@
-import { Accordion, UnstyledButton } from "@mantine/core";
+import { Accordion, Button, Stack, UnstyledButton } from "@mantine/core";
 import classes from "../../assets/css/app.module.css";
 import { useState } from "react";
 
@@ -56,6 +56,21 @@ const MobileNavbarHeader = ({ scrollToSection }: MobileNavbarHeaderProps) => {
           </Accordion.Panel>
         </Accordion.Item>
       </Accordion>
+
+      <Button
+        pos={"absolute"}
+        bottom={20}
+        radius="xl"
+        p="lg"
+        w={"-webkit-fill-available"}
+        h={"max-content"}
+        fz={"md"}
+        bg="black"
+        
+        onClick={() => scrollToSection("contact_us")}
+      >
+        Contact Us
+      </Button>
     </>
   );
 };

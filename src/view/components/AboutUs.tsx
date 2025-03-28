@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Flex, Grid, Image, Stack, Text, Title } from "@mantine/core";
-import TopHotels from "../../assets/img/Top-Hotels.png";
-import Hotel from "../../assets/img/Lalbagh-ranakpur.png";
+import TopHotels from "../../assets/img/hotels/Top-Hotels.png";
+import SOU from "../../assets/img/hotels/SOU.png";
 import Counter from "../../common/Counter";
 
 const AboutUs = () => {
@@ -72,19 +72,19 @@ const AboutUs = () => {
             pos="relative"
             direction="column"
             align="start"
-            justify="center"
+            justify="start"
           >
             <Box
               w="80%"
               pos="relative"
-              bottom="-10px"
+              // bottom="-40px"
               left="0px"
-              style={{ zIndex: 2 }}
+              style={{ zIndex: 3 }}
             >
               <Image
                 src={TopHotels}
-                w={300}
-                h={200}
+                w={350}
+                h={250}
                 radius="xl"
                 style={{
                   outline: "10px solid #f3f3f3",
@@ -92,18 +92,18 @@ const AboutUs = () => {
                 }}
               />
             </Box>
-
+            
             <Box
               w="80%"
               pos="absolute"
-              top="0px"
-              right="0px"
-              style={{ zIndex: 1 }}
+              top="35%"
+              right="5%"
+              style={{ zIndex: 2 }}
             >
               <Image
-                src={Hotel}
+                src={SOU}
                 w={300}
-                h={200}
+                h={300}
                 pos={"absolute"}
                 top={0}
                 right={0}

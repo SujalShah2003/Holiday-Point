@@ -1,18 +1,6 @@
-import {
-  Accordion,
-  AppShell,
-  Box,
-  Burger,
-  Button,
-  Container,
-  Group,
-  Image,
-  Menu,
-  UnstyledButton,
-} from "@mantine/core";
+import { AppShell, Box, Container } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import classes from "./assets/css/app.module.css";
-import Logo from "./assets/img/Logo.png";
 import Banner from "./view/components/Banner";
 import { useEffect, useState } from "react";
 import AboutUs from "./view/components/AboutUs";
@@ -82,7 +70,7 @@ export function App() {
           </Container>
         </Box>
 
-        {showScrollTop && <FloatingButton />}
+        {!opened && showScrollTop && <FloatingButton />}
       </AppShell.Main>
     </AppShell>
   );

@@ -6,7 +6,7 @@ import {
   Button,
   Burger,
 } from "@mantine/core";
-import Logo from "../../assets/img/Logo.png";
+import Logo from "../../assets/img/logo/Logo.png";
 import classes from "../../assets/css/app.module.css";
 
 type HeaderProps = {
