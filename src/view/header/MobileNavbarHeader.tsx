@@ -22,6 +22,7 @@ const MobileNavbarHeader = ({ scrollToSection }: MobileNavbarHeaderProps) => {
       >
         About Us
       </UnstyledButton>
+      
       <Accordion
         variant="filled"
         radius="md"
@@ -57,6 +58,21 @@ const MobileNavbarHeader = ({ scrollToSection }: MobileNavbarHeaderProps) => {
         </Accordion.Item>
       </Accordion>
 
+      <UnstyledButton
+        key={"service"}
+        className={classes.control}
+        onClick={() => scrollToSection("service")}
+      >
+        Services
+      </UnstyledButton>
+      <UnstyledButton
+        key={"testimonials"}
+        className={classes.control}
+        onClick={() => scrollToSection("testimonials")}
+      >
+        Testimonials
+      </UnstyledButton>
+
       <Button
         pos={"absolute"}
         bottom={20}
@@ -66,7 +82,6 @@ const MobileNavbarHeader = ({ scrollToSection }: MobileNavbarHeaderProps) => {
         h={"max-content"}
         fz={"md"}
         bg="black"
-        
         onClick={() => scrollToSection("contact_us")}
       >
         Contact Us

@@ -9,6 +9,8 @@ import DomesticPackages from "./view/components/DomesticPackages";
 import InternationalPackages from "./view/components/InternationalPackages";
 import WebHeader from "./view/header/WebHeader";
 import MobileNavbarHeader from "./view/header/MobileNavbarHeader";
+import Service from "./view/components/Service";
+import Testimonals from "./view/components/Testimonals";
 
 export function App() {
   const [opened, { toggle }] = useDisclosure();
@@ -28,6 +30,7 @@ export function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  console.log(showScrollTop,opened)
   return (
     <AppShell
       header={{ height: 80 }}
@@ -38,7 +41,7 @@ export function App() {
       }}
     >
       {/* Header */}
-      <AppShell.Header withBorder={false}>
+      <AppShell.Header withBorder>
         <WebHeader
           opened={opened}
           toggle={toggle}
@@ -68,9 +71,16 @@ export function App() {
           >
             <InternationalPackages />
           </Container>
+          <Container className={classes.scrolltarget} id="service" size="full">
+            <Service />
+          </Container>
+          <Container className={classes.scrolltarget} id="testimonials" size="full">
+            <Testimonals />
+          </Container>
+
         </Box>
 
-        {!opened && showScrollTop && <FloatingButton />}
+        {showScrollTop && <FloatingButton />}
       </AppShell.Main>
     </AppShell>
   );

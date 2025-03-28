@@ -51,7 +51,7 @@ const Banner = () => {
         >
           <Flex
             direction={"column"}
-            ml={{ base: "xs", sm: "xs", md: "sm", lg: "md", xl: "xl" }}
+            ml="xl"
             w={{ base: "90%", sm: "70%", md: "50%" }}
           >
             <Title

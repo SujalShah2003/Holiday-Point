@@ -21,8 +21,7 @@ const WebHeader = ({ opened, toggle, scrollToSection }: HeaderProps) => {
       h="100%"
       px="xl"
       justify="space-between"
-      style={{ boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" }}
-    >
+          >
       <Image
         src={Logo}
         w={60}
@@ -40,6 +39,7 @@ const WebHeader = ({ opened, toggle, scrollToSection }: HeaderProps) => {
         >
           About Us
         </UnstyledButton>
+
         <Menu
           trigger="hover"
           openDelay={100}
@@ -61,6 +61,22 @@ const WebHeader = ({ opened, toggle, scrollToSection }: HeaderProps) => {
             </Menu.Item>
           </Menu.Dropdown>
         </Menu>
+
+        <UnstyledButton
+          key={"service"}
+          className={classes.control}
+          onClick={() => scrollToSection("service")}
+        >
+          Services
+        </UnstyledButton>
+        <UnstyledButton
+          key={"testimonials"}
+          className={classes.control}
+          onClick={() => scrollToSection("testimonials")}
+        >
+          Testimonials
+        </UnstyledButton>
+
         <Button radius={"xl"} px={"lg"} bg={"black"}>
           Contact Us
         </Button>

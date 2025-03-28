@@ -8,7 +8,7 @@ const FloatingButton = () => {
     <Flex
       className={classes.scrollindicator}
       p={"xs"}
-      style={{ zIndex: 999 }}
+      style={{ zIndex: 60 }}
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
     >
       <IconArrowUp stroke={2} />
