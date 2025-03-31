@@ -31,7 +31,7 @@ const placeData = [
 const InternationalPackages = () => {
   return (
     <>
-      <Box my={{ base: "20%", md: "8%" }} >
+      <Box my={{ base: "20%", md: "8%" }}>
         <Flex
           direction={"column"}
           justify={"center"}
@@ -78,7 +78,7 @@ const InternationalPackages = () => {
                 radius="lg"
                 style={{
                   overflow: "hidden",
-                  cursor:"pointer",
+                  cursor: "pointer",
                 }}
                 className={classes.hoverScale}
               >
@@ -130,6 +130,7 @@ const InternationalPackages = () => {
                       size="lg"
                       tt={"uppercase"}
                       c="white"
+                      ta={"center"}
                       style={{ fontSize: 22 }}
                     >
                       {place.name}

@@ -6,11 +6,11 @@ import {
   Textarea,
   Select,
   Rating,
+  Stack,
+  Text,
 } from "@mantine/core";
-import  {IconCheck}  from '@tabler/icons-react';
-import { notifications } from '@mantine/notifications';
-
-
+import { IconCheck } from "@tabler/icons-react";
+import { LocationOption } from "../helper/data";
 const AddReviewModal = ({
   opened,
   close,
@@ -22,7 +22,6 @@ const AddReviewModal = ({
   const [location, setLocation] = useState("");
   const [rating, setRating] = useState<number | null>(0);
   const [reviewDetails, setReviewDetails] = useState("");
-  const [showNotification, setShowNotification] = useState<boolean>(false);
   const [error, setError] = useState(false);
 
   // @ts-ignore
@@ -54,10 +53,10 @@ const AddReviewModal = ({
       setRating(0);
       setReviewDetails("");
       setError(false);
-      notifications.show({
-        title: 'Thank You for your Review',
-        message: 'Your Review is really valuable for us. Thank You !!',
-      })
+      // notifications.show({
+      //   title: 'Thank You for your Review',
+      //   message: 'Your Review is really valuable for us. Thank You !!',
+      // })
       close();
     } catch (err) {
       console.error("Error:", err);
@@ -73,44 +72,60 @@ const AddReviewModal = ({
         withCloseButton
         centered
       >
-        <TextInput
-          label="Name"
-          placeholder="Enter your name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          error={error && !name ? "Name is required" : ""}
-        />
-        <Select
-          label="Location"
-          placeholder="Select your location"
-          data={["Kumbhalgarh", "Goa", "Kerala", "Himachal", "Jammu & Kashmir"]}
-          value={location}
-          // @ts-ignore
-          onChange={setLocation}
-          error={error && !location ? "Location is required" : ""}
-        />
-        {/* @ts-ignore */}
-        <Rating value={rating} onChange={setRating} size="lg" />
-        {error && !rating && (
-          <div style={{ color: "red", fontSize: "12px" }}>
-            Rating is required
-          </div>
-        )}
-        <Textarea
-          label="Review"
-          placeholder="Write your experience..."
-          minRows={4}
-          value={reviewDetails}
-          onChange={(e) => setReviewDetails(e.target.value)}
-          error={
-            error && !reviewDetails ? "Review description is required" : ""
-          }
-        />
-        <Button fullWidth mt="md" onClick={handleSubmit}>
-          Submit Review
-        </Button>
+        <Stack gap={"xs"}>
+          <TextInput
+            withAsterisk
+            label="Name"
+            placeholder="Enter your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            error={error && !name ? "Name is required" : ""}
+          />
+          <Select
+            withAsterisk
+            checkIconPosition="right"
+            label="Location"
+            placeholder="Select your location"
+            // @ts-ignore
+            data={LocationOption}
+            value={location}
+            // @ts-ignore
+            onChange={setLocation}
+            error={error && !location ? "Location is required" : ""}
+          />
+          <Text size="sm" fw={500}>
+            Rating <span style={{ color: "#fa5252" }}>*</span>
+          </Text>
+          {/* @ts-ignore */}
+          <Rating value={rating} fractions={2} onChange={setRating} size="lg" />
+          {error && !rating && (
+            <div style={{ color: "red", fontSize: "12px" }}>
+              Rating is required
+            </div>
+          )}
+          <Textarea
+            withAsterisk
+            label="Review"
+            placeholder="Write your experience..."
+            minRows={7}
+            value={reviewDetails}
+            onChange={(e) => setReviewDetails(e.target.value)}
+            error={
+              error && !reviewDetails ? "Review description is required" : ""
+            }
+          />
+          <Button
+            fullWidth
+            mt="md"
+            onClick={handleSubmit}
+            p={"sm"}
+            h={"max-content"}
+            bg={"var(--primary-color)"}
+          >
+            Submit Review
+          </Button>
+        </Stack>
       </Modal>
-      
     </>
   );
 };

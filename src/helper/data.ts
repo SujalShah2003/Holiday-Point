@@ -1,9 +1,24 @@
-export const reviewData = [
+export const LocationOption = [
   {
-    username: "Sujal",
-    location: "Kumbhalgarh",
-    rating: 4.5,
-    reviewDetails:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    group: "Domestic Packages",
+    items: [
+      { value: "Gujarat", label: "Gujarat" },
+      { value: "Himachal Pradesh", label: "Himachal Pradesh" },
+      { value: "Goa", label: "Goa" },
+      { value: "Kerala", label: "Kerala" },
+      { value: "Kumbhalgarh", label: "Kumbhalgarh" },
+      { value: "Jammu Kashmir", label: "Jammu Kashmir" },
+    ],
   },
-];
+  {
+    group: "International Packages",
+    items: [
+      { value: "Vietnam", label: "Vietnam" },
+      { value: "Dubai", label: "Dubai" },
+      { value: "Singapore Malaysia", label: "Singapore Malaysia" },
+      { value: "Maldives", label: "Maldives" },
+      { value: "Bali", label: "Bali" },
+      { value: "Sri Lanka", label: "Sri Lanka" },
+    ],
+  },
+] as const;

@@ -126,7 +126,7 @@ const DomesticPackages = () => {
                     align="center"
                     justify="center"
                   >
-                    <Title size="lg" tt={"uppercase"} c="white" style={{fontSize : 22}}>
+                    <Title size="lg" ta={"center"} tt={"uppercase"} c="white" style={{fontSize : 22}}>
                       {place.name}
                     </Title>
                   </Flex>

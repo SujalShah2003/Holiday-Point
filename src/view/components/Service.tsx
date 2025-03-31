@@ -1,5 +1,4 @@
 import { Box, Flex, Grid, Paper, Stack, Text, Title } from "@mantine/core";
-import { describe } from "node:test";
 import React from "react";
 
 const data = [

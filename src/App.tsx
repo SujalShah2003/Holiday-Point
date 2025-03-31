@@ -1,4 +1,4 @@
-import { AppShell, Box, Container } from "@mantine/core";
+import { AppShell, Box, Center, Container, Loader } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import classes from "./assets/css/app.module.css";
 import Banner from "./view/components/Banner";
@@ -11,6 +11,7 @@ import WebHeader from "./view/header/WebHeader";
 import MobileNavbarHeader from "./view/header/MobileNavbarHeader";
 import Service from "./view/components/Service";
 import Testimonals from "./view/components/Testimonals";
+import ContactUs from "./view/components/ContactUs";
 
 export function App() {
   const [opened, { toggle }] = useDisclosure();
@@ -30,7 +31,6 @@ export function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  console.log(showScrollTop, opened);
   return (
     <AppShell
       header={{ height: 80 }}
@@ -84,6 +84,13 @@ export function App() {
             size="full"
           >
             <Testimonals />
+          </Container>
+          <Container
+            className={classes.scrolltarget}
+            id="contact_us"
+            size="full"
+          >
+            <ContactUs />
           </Container>
         </Box>
 

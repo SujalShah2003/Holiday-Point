@@ -1,7 +1,8 @@
 import React from "react";
-import { Button, Container, Flex, Text, Title } from "@mantine/core";
+import { Button, Container, Flex, Image, Text, Title } from "@mantine/core";
 import BannerVideo from "../../assets/video/BannerVideo.mp4";
 import BannerVideo2 from "../../assets/video/BannerVideo2.mp4";
+import BannerImage from "../../assets/video/BannerImage.jpg";
 type BannerProps = {
   opened: boolean;
   toggle: () => void;
@@ -20,11 +21,8 @@ const Banner = ({ opened, toggle, scrollToSection }: BannerProps) => {
         }}
       >
         {/* Background Video */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
+        <Image
+          src={BannerImage}
           style={{
             position: "absolute",
             top: 0,
@@ -35,10 +33,9 @@ const Banner = ({ opened, toggle, scrollToSection }: BannerProps) => {
             objectFit: "cover",
             zIndex: 0,
           }}
-        >
-          <source src={BannerVideo2} type="video/mp4" />
+        />
+          {/* <source src={BannerVideo2} type="video/mp4" /> */}
         
-        </video>
 
         {/* Overlay Content */}
         <Flex

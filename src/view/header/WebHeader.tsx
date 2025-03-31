@@ -76,7 +76,7 @@ const WebHeader = ({ opened, toggle, scrollToSection }: HeaderProps) => {
           Testimonials
         </UnstyledButton>
 
-        <Button radius={"xl"} px={"lg"} bg={"black"}>
+        <Button radius={"xl"} px={"lg"} bg={"black"}  onClick={() => scrollToSection("contact_us")}>
           Contact Us
         </Button>
       </Group>

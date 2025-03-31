@@ -3,7 +3,8 @@ import express, { json } from "express";
 import { connect, Schema, model } from "mongoose";
 import cors from "cors";
 
-const MONGO_URI = "mongodb+srv://admin:Holiday%40061207@holiday-point.kepnlri.mongodb.net/client_reviews";
+const MONGO_URI =
+  "mongodb+srv://admin:Holiday%40061207@holiday-point.kepnlri.mongodb.net/client_reviews";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -20,15 +21,19 @@ connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
 // Review Schema
-const reviewSchema = new Schema({
-  username: String,
-  location: String,
-  rating: Number,
-  reviewDetails: String
-});
+const reviewSchema = new Schema(
+  {
+    username: String,
+    location: String,
+    rating: Number,
+    reviewDetails: String,
+  },
+  { timestamps: true }
+);
 
 const Review = model("Review", reviewSchema);
 
+// GET all reviews
 app.get("/api/reviews", async (req, res) => {
   try {
     const reviews = await Review.find(); // Fetch all reviews from MongoDB
@@ -39,6 +44,7 @@ app.get("/api/reviews", async (req, res) => {
   }
 });
 
+// GET review by ID
 app.get("/api/reviews/:id", async (req, res) => {
   try {
     const reviews = await Review.findById(req.params.id); // Fetch all reviews from MongoDB
@@ -49,7 +55,7 @@ app.get("/api/reviews/:id", async (req, res) => {
   }
 });
 
-// POST route to save reviews
+// POST new review
 app.post("/api/reviews", async (req, res) => {
   try {
     const { username, location, rating, reviewDetails } = req.body;
@@ -58,7 +64,20 @@ app.post("/api/reviews", async (req, res) => {
       return res.status(400).json({ error: "All fields are required" });
     }
 
-    const newReview = new Review({ username, location, rating, reviewDetails });
+    const now = new Date();
+    const istOffset = 5.5 * 60 * 60 * 1000;
+    const istTime = new Date(now.getTime() + istOffset)
+      .toISOString()
+      .replace("T", " ")
+      .split(".")[0];
+
+    const newReview = new Review({
+      username,
+      location,
+      rating,
+      reviewDetails,
+      time: istTime,
+    });
     await newReview.save();
 
     res.status(201).json({ message: "Review added successfully" });

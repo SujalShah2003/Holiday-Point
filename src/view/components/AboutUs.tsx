@@ -19,7 +19,7 @@ const AboutUs = () => {
               About Us
             </Text>
             <Title>Your perfect stay, just a click away!</Title>
-            <Text c={"var(--text-gray-color)"} w={"80%"}>
+            <Text component="div" c={"var(--text-gray-color)"} w={"80%"}>
               At{" "}
               <Text span fw={700}>
                 Holiday Point
