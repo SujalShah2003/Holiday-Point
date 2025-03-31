@@ -17,11 +17,7 @@ type HeaderProps = {
 
 const WebHeader = ({ opened, toggle, scrollToSection }: HeaderProps) => {
   return (
-    <Group
-      h="100%"
-      px="xl"
-      justify="space-between"
-          >
+    <Group h="100%" px="xl" justify="space-between">
       <Image
         src={Logo}
         w={60}
@@ -36,6 +32,7 @@ const WebHeader = ({ opened, toggle, scrollToSection }: HeaderProps) => {
           key={"about_us"}
           className={classes.control}
           onClick={() => scrollToSection("about_us")}
+          fw={600}
         >
           About Us
         </UnstyledButton>
@@ -48,7 +45,7 @@ const WebHeader = ({ opened, toggle, scrollToSection }: HeaderProps) => {
           withArrow
         >
           <Menu.Target>
-            <UnstyledButton className={classes.control}>
+            <UnstyledButton className={classes.control} fw={600}>
               Destination
             </UnstyledButton>
           </Menu.Target>
@@ -66,6 +63,7 @@ const WebHeader = ({ opened, toggle, scrollToSection }: HeaderProps) => {
           key={"service"}
           className={classes.control}
           onClick={() => scrollToSection("service")}
+          fw={600}
         >
           Services
         </UnstyledButton>
@@ -73,6 +71,7 @@ const WebHeader = ({ opened, toggle, scrollToSection }: HeaderProps) => {
           key={"testimonials"}
           className={classes.control}
           onClick={() => scrollToSection("testimonials")}
+          fw={600}
         >
           Testimonials
         </UnstyledButton>

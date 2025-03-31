@@ -30,7 +30,7 @@ export function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  console.log(showScrollTop,opened)
+  console.log(showScrollTop, opened);
   return (
     <AppShell
       header={{ height: 80 }}
@@ -56,7 +56,11 @@ export function App() {
 
       {/* Main Content with Sections */}
       <AppShell.Main>
-        <Banner />
+        <Banner
+          opened={opened}
+          toggle={toggle}
+          scrollToSection={scrollToSection}
+        />
         <Box p={"var(--mantine-spacing-xs) var(--mantine-spacing-lg)"}>
           <Container className={classes.scrolltarget} id="about_us" size="full">
             <AboutUs />
@@ -74,10 +78,13 @@ export function App() {
           <Container className={classes.scrolltarget} id="service" size="full">
             <Service />
           </Container>
-          <Container className={classes.scrolltarget} id="testimonials" size="full">
+          <Container
+            className={classes.scrolltarget}
+            id="testimonials"
+            size="full"
+          >
             <Testimonals />
           </Container>
-
         </Box>
 
         {showScrollTop && <FloatingButton />}

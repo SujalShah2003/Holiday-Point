@@ -3,6 +3,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { Box, Button, Flex, Modal, Stack, Text, Title } from "@mantine/core";
 import { IconPlus } from "@tabler/icons-react";
 import AddReviewModal from "../../common/AddReviewModal";
+import ReviewList from "../../common/ReviewList";
 
 const Testimonals = () => {
   const [opened, setOpened] = useState(false);
@@ -38,7 +39,7 @@ const Testimonals = () => {
                 size="lg"
                 onClick={() => setOpened(true)}
                 radius={"md"}
-                mt={{base:"lg",sm:"unset"}}
+                mt={{ base: "lg", sm: "unset" }}
               >
                 <IconPlus style={{ marginRight: 8 }} size={"20px"} /> Add Your
                 Review
@@ -46,10 +47,11 @@ const Testimonals = () => {
             </Flex>
           </Stack>
         </Flex>
+
+        <AddReviewModal opened={opened} close={() => setOpened(false)} />
+
+        <ReviewList opened={opened}/>
       </Box>
-
-      <AddReviewModal opened={opened} close={() => setOpened(false)} />
-
     </>
   );
 };

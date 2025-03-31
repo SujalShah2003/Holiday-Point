@@ -19,10 +19,11 @@ const MobileNavbarHeader = ({ scrollToSection }: MobileNavbarHeaderProps) => {
         key={"about_us"}
         className={classes.control}
         onClick={() => scrollToSection("about_us")}
+        fw={600}
       >
         About Us
       </UnstyledButton>
-      
+
       <Accordion
         variant="filled"
         radius="md"
@@ -30,7 +31,7 @@ const MobileNavbarHeader = ({ scrollToSection }: MobileNavbarHeaderProps) => {
         onChange={setAccordionValue}
       >
         <Accordion.Item value="destination">
-          <Accordion.Control>Destination</Accordion.Control>
+          <Accordion.Control fw={600}>Destination</Accordion.Control>
           <Accordion.Panel>
             <UnstyledButton
               onClick={() => handleClick("domestic")}
@@ -62,6 +63,7 @@ const MobileNavbarHeader = ({ scrollToSection }: MobileNavbarHeaderProps) => {
         key={"service"}
         className={classes.control}
         onClick={() => scrollToSection("service")}
+        fw={600}
       >
         Services
       </UnstyledButton>
@@ -69,6 +71,7 @@ const MobileNavbarHeader = ({ scrollToSection }: MobileNavbarHeaderProps) => {
         key={"testimonials"}
         className={classes.control}
         onClick={() => scrollToSection("testimonials")}
+        fw={600}
       >
         Testimonials
       </UnstyledButton>

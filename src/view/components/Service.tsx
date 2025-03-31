@@ -11,7 +11,7 @@ const data = [
   {
     servicename: "Domestic Packages",
     describe:
-      "Discover India's breathtaking beauty with customized trips to Goa, Himachal, Kerala, Rajasthan, and more.",
+      "Discover India's breathtaking beauty with customized trips to Goa, Himachal, Kerala, and more.",
   },
   {
     servicename: "Air Tickets",
@@ -58,11 +58,12 @@ const Service = () => {
         <Grid gutter="xl">
           {data.map((item, i) => (
             <Grid.Col key={i} span={{ base: 12, md: 6, lg: 3 }}>
-              <Paper radius={"lg"} style={{ overflow: "hidden" }}>
+              <Paper radius={"lg"} h={"100%"} style={{ overflow: "hidden" }}>
                 <Flex
                   justify={"space-between"}
                   p={"xl"}
-                  bg={"var(--mantine-color-gray-1"}
+                  h={"100%"}
+                  bg={"var(--mantine-color-blue-light"}
                   wrap={"wrap"}
                 >
                   <Title order={2} c={"var(--primary-color)"}>
