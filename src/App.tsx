@@ -1,4 +1,11 @@
-import { AppShell, Box, Center, Container, Loader } from "@mantine/core";
+import {
+  AppShell,
+  AppShellFooter,
+  Box,
+  Center,
+  Container,
+  Loader,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import classes from "./assets/css/app.module.css";
 import Banner from "./view/components/Banner";
@@ -12,10 +19,12 @@ import MobileNavbarHeader from "./view/header/MobileNavbarHeader";
 import Service from "./view/components/Service";
 import Testimonals from "./view/components/Testimonals";
 import ContactUs from "./view/components/ContactUs";
+import Footer from "./view/footer/Footer";
 
 export function App() {
   const [opened, { toggle }] = useDisclosure();
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const scrollToSection = (id: any) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -31,6 +40,21 @@ export function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <Center h="100vh" w="100vw">
+        <Loader color="blue" size="lg" />
+      </Center>
+    );
+  }
   return (
     <AppShell
       header={{ height: 80 }}
@@ -92,6 +116,8 @@ export function App() {
           >
             <ContactUs />
           </Container>
+
+          <Footer scrollToSection={scrollToSection} />
         </Box>
 
         {showScrollTop && <FloatingButton />}

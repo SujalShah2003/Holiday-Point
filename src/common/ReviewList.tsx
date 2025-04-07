@@ -166,9 +166,10 @@ const ReviewList: React.FC<ReviewListProps> = ({ opened }) => {
           onClose={close}
           withCloseButton={false}
           centered
-          size={"md"}
+          size={"lg"}
+          // h={"max-content"}
         >
-          <Flex direction="column" p={"lg"} align="start" gap="md" h={300}>
+          <Flex direction="column"  p={"lg"} align="start" gap="md" h={300}>
             {/* User Avatar and Name */}
             <Flex
               align="center"
@@ -211,7 +212,7 @@ const ReviewList: React.FC<ReviewListProps> = ({ opened }) => {
             </Flex>
 
             {/* detailReview Details */}
-            <Box h={"100%"} w={"100%"}>
+            <Box h={"100%"} w={"100%"} >
               <Text
                 size={"10px"}
                 fw={500}
@@ -224,9 +225,9 @@ const ReviewList: React.FC<ReviewListProps> = ({ opened }) => {
                 mt={5}
                 h={"100%"}
                 w={"100%"}
-                style={{ overflowY: "auto", scrollbarWidth: "none" }}
+                
               >
-                <Text size="sm">{detailReview.reviewDetails}</Text>
+                <Text size="sm" pb={"xl"} >{detailReview.reviewDetails}</Text>
               </Box>
             </Box>
           </Flex>

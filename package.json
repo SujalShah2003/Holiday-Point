@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@mantine/carousel": "^7.17.2",
+    "@mantine/carousel": "^7.17.3",
     "@mantine/core": "^7.17.2",
     "@mantine/dates": "^7.17.2",
     "@mantine/form": "^7.17.2",
@@ -20,12 +20,13 @@
     "cors": "^2.8.5",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.7",
-    "embla-carousel-autoplay": "^7.1.0",
+    "embla-carousel-react": "^7.1.0",
     "express": "^4.21.2",
     "mongoose": "^8.13.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-multi-carousel": "^2.8.5"
+    "react-multi-carousel": "^2.8.5",
+    "react-toastify": "^11.0.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

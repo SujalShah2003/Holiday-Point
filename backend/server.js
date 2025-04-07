@@ -30,8 +30,20 @@ const reviewSchema = new Schema(
   },
   { timestamps: true }
 );
-
 const Review = model("Review", reviewSchema);
+
+// Contact Schema
+const contactSchema = new Schema({
+  checkIn: { type: Date, required: true },
+  checkOut: { type: Date, required: true },
+  location: { type: String, required: true },
+  members: { type: Number, required: true },
+  category: { type: String, required: true },
+  contact: { type: String, required: true },
+  time: { type: String }, // Optional - save submission time in IST
+});
+
+const Contact = model("Contact", contactSchema);
 
 // GET all reviews
 app.get("/api/reviews", async (req, res) => {
@@ -86,6 +98,41 @@ app.post("/api/reviews", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+// POST Contact Details
+app.post("/api/contact", async (req, res) => {
+  try {
+    const { checkIn, checkOut, location, members, category, contact } = req.body;
+
+    if (!checkIn || !checkOut || !location || !members || !category || !contact) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+    const now = new Date();
+    const istOffset = 5.5 * 60 * 60 * 1000;
+    const istTime = new Date(now.getTime() + istOffset)
+      .toISOString()
+      .replace("T", " ")
+      .split(".")[0];
+
+    const newContact = new Contact({
+      checkIn,
+      checkOut,
+      location,
+      members,
+      category,
+      contact,
+      time: istTime,
+    });
+
+    await newContact.save();
+    res.status(201).json({ message: "Contact form submitted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 
 // Start Server
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

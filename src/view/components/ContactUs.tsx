@@ -1,31 +1,35 @@
 import {
+  ActionIcon,
   Box,
   Button,
   Flex,
   Grid,
   Image,
   NumberInput,
-  Paper,
   Select,
   Stack,
   Text,
-  TextInput,
   Title,
+  Tooltip,
 } from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { useForm, UseFormReturnType } from "@mantine/form";
 import { DateInput } from "@mantine/dates";
-import BannerImage from "../../assets/video/BannerImage.jpg";
-import { LocationOption } from "../../helper/data";
-
+import { LocationOption, happyClient } from "../../helper/data";
 import React from "react";
-
-import { useRef } from "react";
-import Autoplay from "embla-carousel-autoplay";
 import { Carousel } from "@mantine/carousel";
+import { IconInfoSmall } from "@tabler/icons-react";
+import { toast, ToastContainer } from "react-toastify";
+
+type ContactFormValues = {
+  checkIn: Date | null;
+  checkOut: Date | null;
+  location: string;
+  members: number;
+  category: string;
+  contact: string | number | null;
+};
 
 const ContactUs = () => {
-  const autoplay = useRef(Autoplay({ delay: 2000 }));
-
   const form = useForm({
     initialValues: {
       checkIn: null,
@@ -44,9 +48,36 @@ const ContactUs = () => {
       contact: (value) => (value ? null : "Contact number is required"),
     },
   });
+  const handleSubmit = async (
+    values: ContactFormValues,
+    form: UseFormReturnType<ContactFormValues>
+  ): Promise<void> => {
+    try {
+      const response = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
 
+      const data: { error?: string; message?: string } = await response.json();
+
+      if (response.ok) {
+        toast.success(
+          "Your request has been registered successfully. Our team will get back to you within 24 hours."
+        );
+        form.reset(); // ✅ Reset form fields
+      } else {
+        alert(data.error || "Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      console.error("Submit error:", error);
+      alert("Server error. Please try again later.");
+    }
+  };
   return (
     <>
+      <ToastContainer />
+
       <Box my={{ base: "10%", md: "8%" }}>
         <Flex
           direction={"column"}
@@ -73,28 +104,30 @@ const ContactUs = () => {
             </Title>
           </Stack>
         </Flex>
-        <Grid>
-          <Grid.Col
-            span={{ base: 0, sm: 6 }}
-            display={{ base: "none", sm: "block" }}
-          >
+        <Grid gutter={"xl"}>
+          <Grid.Col span={{ base: 12, sm: 6 }} order={{ base: 2, sm: 0 }}>
             <Carousel
               withIndicators
-              height={"100%"}
-              plugins={[autoplay.current]}
-              onMouseEnter={autoplay.current.stop}
-              onMouseLeave={autoplay.current.reset}
+              // height={"100%"}
+              type="container"
+              slideSize={{
+                base: "100%",
+                "300px": "50%",
+                "500px": "50%",
+              }}
+              slideGap={{ base: "lg", "300px": "md", "500px": "lg" }}
+              loop
+              align="start"
             >
-              <Carousel.Slide>
-                <Image src={BannerImage} alt="Travel Destination" />
-              </Carousel.Slide>
-              <Carousel.Slide>
-                <Image src={BannerImage} alt="Travel Destination" />
-              </Carousel.Slide>
-              <Carousel.Slide>
-                <Image src={BannerImage} alt="Travel Destination" />
-              </Carousel.Slide>
-              {/* ...other slides */}
+              {happyClient?.map((item) => {
+                return (
+                  <>
+                    <Carousel.Slide>
+                      <Image src={item?.img_src} alt={item?.img_alt} />
+                    </Carousel.Slide>
+                  </>
+                );
+              })}
             </Carousel>
           </Grid.Col>
           <Grid.Col
@@ -102,9 +135,8 @@ const ContactUs = () => {
             style={{ alignContent: "center" }}
           >
             <form
-              onSubmit={form.onSubmit((values) => {
-                console.log("Booking Details:", values);
-              })}
+             //@ts-ignore 
+              onSubmit={form.onSubmit((values) => handleSubmit(values, form))}
             >
               <Stack gap={"xs"}>
                 {/* Date Inputs */}
@@ -165,7 +197,6 @@ const ContactUs = () => {
                   wrap={{ base: "wrap", sm: "nowrap" }}
                   justify={"space-between"}
                 >
-                  <Text>Members</Text>
                   <Flex align="center" gap="xs" w={"100%"} justify={"center"}>
                     <Button
                       radius={"50%"}
@@ -189,6 +220,27 @@ const ContactUs = () => {
                     >
                       +
                     </Button>
+                    <Tooltip
+                      withArrow
+                      label="Please Counter the member or else default 2 will be entered"
+                      w={"200px"}
+                      fz={"xs"}
+                      bg={"gray"}
+                      style={{ textWrap: "wrap" }}
+                    >
+                      <ActionIcon
+                        variant="filled"
+                        aria-label="Settings"
+                        color="#d7d7d7"
+                        radius={"50%"}
+                      >
+                        <IconInfoSmall
+                          color="gray"
+                          style={{ width: "100%", height: "100%" }}
+                          stroke={1.5}
+                        />
+                      </ActionIcon>
+                    </Tooltip>
                   </Flex>
                   <NumberInput
                     withAsterisk

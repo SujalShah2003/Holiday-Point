@@ -11,6 +11,7 @@ import {
 } from "@mantine/core";
 import { IconCheck } from "@tabler/icons-react";
 import { LocationOption } from "../helper/data";
+import { toast, ToastContainer } from "react-toastify";
 const AddReviewModal = ({
   opened,
   close,
@@ -47,6 +48,8 @@ const AddReviewModal = ({
 
       if (!response.ok) throw new Error("Failed to add review");
 
+      toast.success("Thank you for your review !!");
+
       // Reset form
       setName("");
       setLocation("");
@@ -65,6 +68,8 @@ const AddReviewModal = ({
   };
   return (
     <>
+      <ToastContainer />
+
       <Modal
         opened={opened}
         onClose={close}
