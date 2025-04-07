@@ -46,7 +46,7 @@ const DomesticPackages = () => {
               fw={600}
               fz={{ base: "xs", sm: "md" }}
             >
-              Destination Hello
+              Destination 
             </Text>
             <Title
               fw={600}
