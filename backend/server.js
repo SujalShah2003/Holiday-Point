@@ -46,7 +46,7 @@ const contactSchema = new Schema({
 const Contact = model("Contact", contactSchema);
 
 // GET all reviews
-app.get("/api/reviews", async (req, res) => {
+app.get("https://holiday-point-backend-rx2e.onrender.com/api/reviews", async (req, res) => {
   try {
     const reviews = await Review.find(); // Fetch all reviews from MongoDB
     res.status(200).json(reviews);
@@ -57,7 +57,7 @@ app.get("/api/reviews", async (req, res) => {
 });
 
 // GET review by ID
-app.get("/api/reviews/:id", async (req, res) => {
+app.get("https://holiday-point-backend-rx2e.onrender.com/api/reviews/:id", async (req, res) => {
   try {
     const reviews = await Review.findById(req.params.id); // Fetch all reviews from MongoDB
     res.status(200).json(reviews);
@@ -68,7 +68,7 @@ app.get("/api/reviews/:id", async (req, res) => {
 });
 
 // POST new review
-app.post("/api/reviews", async (req, res) => {
+app.post("https://holiday-point-backend-rx2e.onrender.com/api/reviews", async (req, res) => {
   try {
     const { username, location, rating, reviewDetails } = req.body;
 
@@ -100,7 +100,7 @@ app.post("/api/reviews", async (req, res) => {
 });
 
 // POST Contact Details
-app.post("/api/contact", async (req, res) => {
+app.post("https://holiday-point-backend-rx2e.onrender.com/api/contact", async (req, res) => {
   try {
     const { checkIn, checkOut, location, members, category, contact } = req.body;
 
