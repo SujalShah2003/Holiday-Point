@@ -3,9 +3,7 @@ import express, { json } from "express";
 import { connect, Schema, model } from "mongoose";
 import cors from "cors";
 
-const MONGO_URI =
-  "mongodb+srv://admin:Holiday%40061207@holiday-point.kepnlri.mongodb.net/client_reviews";
-
+const MONGO_URI = "mongodb+srv://admin:05AFGMfnnBzm8t6k@holiday-point.apk3z1r.mongodb.net/holiday-point-db"
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -21,15 +19,13 @@ connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
 // Review Schema
-const reviewSchema = new Schema(
-  {
-    username: String,
-    location: String,
-    rating: Number,
-    reviewDetails: String,
-  },
-  { timestamps: true }
-);
+const reviewSchema = new Schema({
+  username: { type: String, required: true },
+  location: { type: String, required: true },
+  rating: { type: Number, required: true },
+  reviewDetails: { type: String, required: true },
+  time: { type: String },
+});
 const Review = model("Review", reviewSchema);
 
 // Contact Schema
@@ -40,6 +36,7 @@ const contactSchema = new Schema({
   members: { type: Number, required: true },
   category: { type: String, required: true },
   contact: { type: String, required: true },
+  username: { type: String, required: true },
   time: { type: String }, // Optional - save submission time in IST
 });
 
@@ -116,6 +113,7 @@ app.post("/api/contact", async (req, res) => {
       .split(".")[0];
 
     const newContact = new Contact({
+      username,
       checkIn,
       checkOut,
       location,
