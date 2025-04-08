@@ -30,13 +30,13 @@ const Review = model("Review", reviewSchema);
 
 // Contact Schema
 const contactSchema = new Schema({
+  username: { type: String, required: true },
   checkIn: { type: Date, required: true },
   checkOut: { type: Date, required: true },
   location: { type: String, required: true },
   members: { type: Number, required: true },
   category: { type: String, required: true },
   contact: { type: String, required: true },
-  username: { type: String, required: true },
   time: { type: String }, // Optional - save submission time in IST
 });
 
@@ -99,9 +99,9 @@ app.post("/api/reviews", async (req, res) => {
 // POST Contact Details
 app.post("/api/contact", async (req, res) => {
   try {
-    const { checkIn, checkOut, location, members, category, contact } = req.body;
+    const { username,checkIn, checkOut, location, members, category, contact } = req.body;
 
-    if (!checkIn || !checkOut || !location || !members || !category || !contact) {
+    if (!username || !checkIn || !checkOut || !location || !members || !category || !contact) {
       return res.status(400).json({ error: "All fields are required" });
     }
 
