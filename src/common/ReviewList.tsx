@@ -24,7 +24,7 @@ const ReviewList: React.FC<ReviewListProps> = ({ opened }) => {
   const [detailReview, setDetailsReview] = useState<Review>();
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/reviews")
+    fetch("https://holiday-point-backend-rx2e.onrender.com/api/reviews")
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);
@@ -35,7 +35,7 @@ const ReviewList: React.FC<ReviewListProps> = ({ opened }) => {
   }, [opened]);
 
   const handleClick = (id: string) => {
-    fetch(`http://localhost:5000/api/reviews/${id}`)
+    fetch(`https://holiday-point-backend-rx2e.onrender.com/api/reviews/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setDetailsReview(data);
