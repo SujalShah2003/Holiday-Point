@@ -1,4 +1,11 @@
-import { ActionIcon, Box, Flex, Image, Text } from "@mantine/core";
+import {
+  ActionIcon,
+  Box,
+  Flex,
+  Image,
+  NumberFormatter,
+  Text,
+} from "@mantine/core";
 import React from "react";
 import Logo from "../../assets/img/logo/Logo.png";
 import { IconBrandFacebook, IconBrandInstagram } from "@tabler/icons-react";
@@ -29,15 +36,83 @@ const Footer = ({ scrollToSection }: FooterProps) => {
             style={{ cursor: "pointer" }}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           />
-          <Flex align={"center"} gap={"lg"} mr={"xl"}>
-            <Text tt={"uppercase"}>Follow us: </Text>
-            <Flex gap={"xs"}>
-              <ActionIcon variant="transparent">
-                <IconBrandInstagram color="black" />
-              </ActionIcon>
-              <ActionIcon variant="transparent">
-                <IconBrandFacebook color="black" />
-              </ActionIcon>
+          <Flex align="end" gap={5} mr="xl" direction="column">
+            {/* Social Icons */}
+            <Flex gap={5} align="center">
+              <Text
+                tt="uppercase"
+                c={"var(--primary-color)"}
+                fw={600}
+                fz={"sm"}
+              >
+                Follow us:
+              </Text>
+              <Flex gap="xs" align={"center"}>
+                <ActionIcon
+                  component="a"
+                  href="https://www.instagram.com/holidaypointt/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="transparent"
+                  aria-label="Instagram"
+                >
+                  <IconBrandInstagram color="black" />
+                </ActionIcon>
+                <ActionIcon
+                  component="a"
+                  href="https://www.facebook.com/profile.php?id=100070530663309"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="transparent"
+                  aria-label="Facebook"
+                >
+                  <IconBrandFacebook color="black" />
+                </ActionIcon>
+              </Flex>
+            </Flex>
+
+            {/* Email info */}
+            <Flex gap={5} align="center" wrap="wrap">
+              <Text
+                tt="uppercase"
+                c={"var(--primary-color)"}
+                fw={600}
+                fz={"xs"}
+              >
+                Email :{" "}
+              </Text>
+              <Text ta={"center"} fz={"sm"}>
+                enquirygujarat1@gmail.com
+              </Text>
+            </Flex>
+
+            {/* Contact Info */}
+            <Flex gap={5} align="center" wrap="wrap">
+              <Text
+                tt="uppercase"
+                c={"var(--primary-color)"}
+                fw={600}
+                fz={"sm"}
+              >
+                Contact Info :{" "}
+              </Text>
+              <Flex gap={5} align={"center"}>
+                <NumberFormatter
+                  prefix="+91 "
+                  value={9512121334}
+                  style={{ fontSize: "13px" }}
+                />
+                <Text fz="xs">- Vijay Shah</Text>
+              </Flex>
+
+              <Flex gap={5} align={"center"}>
+                <NumberFormatter
+                  prefix="+91 "
+                  value={9726739494}
+                  style={{ fontSize: "13px" }}
+                />
+                <Text fz="xs">- Rohan Shah</Text>
+              </Flex>
             </Flex>
           </Flex>
         </Flex>
