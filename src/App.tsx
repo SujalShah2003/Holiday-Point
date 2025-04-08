@@ -14,6 +14,7 @@ import Testimonals from "./view/components/Testimonals";
 import ContactUs from "./view/components/ContactUs";
 import Footer from "./view/footer/Footer";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function App() {
   const [opened, { toggle }] = useDisclosure();
