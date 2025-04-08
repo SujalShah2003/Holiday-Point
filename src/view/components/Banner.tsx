@@ -1,14 +1,13 @@
-import React from "react";
 import { Button, Container, Flex, Image, Text, Title } from "@mantine/core";
-import BannerVideo from "../../assets/video/BannerVideo.mp4";
-import BannerVideo2 from "../../assets/video/BannerVideo2.mp4";
+// import BannerVideo from "../../assets/video/BannerVideo.mp4";
+// import BannerVideo2 from "../../assets/video/BannerVideo2.mp4";
 import BannerImage from "../../assets/video/BannerImage.jpg";
 type BannerProps = {
   opened: boolean;
   toggle: () => void;
   scrollToSection: (id: string) => void;
 };
-const Banner = ({ opened, toggle, scrollToSection }: BannerProps) => {
+const Banner = ({ scrollToSection }: BannerProps) => {
   return (
     <>
       <Container

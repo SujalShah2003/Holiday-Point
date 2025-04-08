@@ -6,7 +6,6 @@ import {
   NumberFormatter,
   Text,
 } from "@mantine/core";
-import React from "react";
 import Logo from "../../assets/img/logo/Logo.png";
 import { IconBrandFacebook, IconBrandInstagram } from "@tabler/icons-react";
 type FooterProps = {

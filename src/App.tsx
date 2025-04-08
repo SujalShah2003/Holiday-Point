@@ -1,6 +1,5 @@
 import {
   AppShell,
-  AppShellFooter,
   Box,
   Center,
   Container,
@@ -20,7 +19,6 @@ import Service from "./view/components/Service";
 import Testimonals from "./view/components/Testimonals";
 import ContactUs from "./view/components/ContactUs";
 import Footer from "./view/footer/Footer";
-import { ToastContainer } from "react-toastify";
 
 export function App() {
   const [opened, { toggle }] = useDisclosure();

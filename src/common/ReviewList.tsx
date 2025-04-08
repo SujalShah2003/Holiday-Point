@@ -1,20 +1,8 @@
 import { useState, useEffect } from "react";
-import {
-  Card,
-  Text,
-  Rating,
-  Loader,
-  Center,
-  Paper,
-  Flex,
-  Avatar,
-  Modal,
-  Box,
-} from "@mantine/core";
+import { Text, Rating, Paper, Flex, Avatar, Modal, Box } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 import { IconMapPin } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
-import classes from "../assets/css/app.module.css";
 
 export interface Review {
   _id: string;
@@ -64,12 +52,13 @@ const ReviewList: React.FC<ReviewListProps> = ({ opened }) => {
         <Text ta="center">No reviews found.</Text>
       ) : (
         <Carousel
-          slideSize="33.333%" 
+          slideSize="33.333%"
           slidesToScroll={1}
           align="start"
           withIndicators
           slideGap="md"
           loop={true}
+          // @ts-ignore
           breakpoints={[
             { maxWidth: 1024, slideSize: "50%" }, // Tablet: 2 cards
             { maxWidth: 768, slideSize: "100%" }, // Mobile: 1 card

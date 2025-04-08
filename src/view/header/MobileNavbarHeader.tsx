@@ -1,4 +1,4 @@
-import { Accordion, Button, Stack, UnstyledButton } from "@mantine/core";
+import { Accordion, Button, UnstyledButton } from "@mantine/core";
 import classes from "../../assets/css/app.module.css";
 import { useState } from "react";
 

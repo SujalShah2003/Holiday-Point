@@ -15,7 +15,6 @@ import {
 import { useForm, UseFormReturnType } from "@mantine/form";
 import { DateInput } from "@mantine/dates";
 import { LocationOption, happyClient } from "../../helper/data";
-import React from "react";
 import { Carousel } from "@mantine/carousel";
 import { IconInfoSmall } from "@tabler/icons-react";
 import { toast, ToastContainer } from "react-toastify";
@@ -272,6 +271,7 @@ const ContactUs = () => {
                     type="tel"
                     value={form.values.contact ?? ""}
                     // Parse out non-digit characters and limit to 10 digits
+                    // @ts-ignore
                     parser={(value: string) =>
                       value.replace(/\D/g, "").slice(0, 10)
                     }
@@ -286,6 +286,7 @@ const ContactUs = () => {
                         typeof value === "string" ? value : value?.toString();
                       const digits =
                         str?.replace(/\D/g, "").slice(0, 10) ?? null;
+                        // @ts-ignore
                       form.setFieldValue("contact", digits || null);
                     }}
                     error={form.errors.contact}

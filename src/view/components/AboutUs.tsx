@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Flex, Grid, Image, Stack, Text, Title } from "@mantine/core";
 import TopHotels from "../../assets/img/hotels/Top-Hotels.png";
 import SOU from "../../assets/img/hotels/SOU.png";

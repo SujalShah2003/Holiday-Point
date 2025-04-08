@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Title } from "@mantine/core";
 
 const Counter = ({ end = 1000, duration = 2000 }: { end: number; duration?: number }) => {

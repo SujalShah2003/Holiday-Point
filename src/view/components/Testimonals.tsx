@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { useDisclosure } from "@mantine/hooks";
-import { Box, Button, Flex, Modal, Stack, Text, Title } from "@mantine/core";
+import { useState } from "react";
+import { Box, Button, Flex,  Stack, Text, Title } from "@mantine/core";
 import { IconPlus } from "@tabler/icons-react";
 import AddReviewModal from "../../common/AddReviewModal";
 import ReviewList from "../../common/ReviewList";
