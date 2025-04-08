@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 import { IconCheck } from "@tabler/icons-react";
 import { LocationOption } from "../helper/data";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 const AddReviewModal = ({
   opened,
   close,
@@ -73,7 +73,6 @@ const AddReviewModal = ({
   };
   return (
     <>
-        <ToastContainer/>
     
       <Modal
         opened={opened}

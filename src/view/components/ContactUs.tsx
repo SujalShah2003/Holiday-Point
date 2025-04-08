@@ -17,7 +17,7 @@ import { DateInput } from "@mantine/dates";
 import { LocationOption, happyClient } from "../../helper/data";
 import { Carousel } from "@mantine/carousel";
 import { IconInfoSmall } from "@tabler/icons-react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 type ContactFormValues = {
   checkIn: Date | null;
@@ -88,7 +88,6 @@ const ContactUs = () => {
   };
   return (
     <>
-      <ToastContainer />
 
       <Box my={{ base: "10%", md: "8%" }}>
         <Flex

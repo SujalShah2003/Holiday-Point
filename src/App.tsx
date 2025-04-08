@@ -1,10 +1,4 @@
-import {
-  AppShell,
-  Box,
-  Center,
-  Container,
-  Loader,
-} from "@mantine/core";
+import { AppShell, Box, Center, Container, Loader } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import classes from "./assets/css/app.module.css";
 import Banner from "./view/components/Banner";
@@ -19,6 +13,7 @@ import Service from "./view/components/Service";
 import Testimonals from "./view/components/Testimonals";
 import ContactUs from "./view/components/ContactUs";
 import Footer from "./view/footer/Footer";
+import { ToastContainer } from "react-toastify";
 
 export function App() {
   const [opened, { toggle }] = useDisclosure();
@@ -56,6 +51,8 @@ export function App() {
   }
   return (
     <>
+      <ToastContainer />
+
       <AppShell
         header={{ height: 80 }}
         navbar={{
@@ -135,7 +132,6 @@ export function App() {
           {showScrollTop && <FloatingButton />}
         </AppShell.Main>
       </AppShell>
-
     </>
   );
 }
