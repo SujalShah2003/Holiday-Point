@@ -1,4 +1,3 @@
-import React from "react";
 import { Flex } from "@mantine/core";
 import { IconArrowUp } from "@tabler/icons-react";
 import classes from "../../assets/css/app.module.css";
