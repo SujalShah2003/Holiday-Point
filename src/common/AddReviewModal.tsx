@@ -48,7 +48,16 @@ const AddReviewModal = ({
 
       if (!response.ok) throw new Error("Failed to add review");
 
-      toast.success("Thank you for your review !!");
+      toast.success("Thank you for your review !!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
 
       // Reset form
       setName("");
@@ -56,10 +65,6 @@ const AddReviewModal = ({
       setRating(0);
       setReviewDetails("");
       setError(false);
-      // notifications.show({
-      //   title: 'Thank You for your Review',
-      //   message: 'Your Review is really valuable for us. Thank You !!',
-      // })
       close();
     } catch (err) {
       console.error("Error:", err);
@@ -68,8 +73,8 @@ const AddReviewModal = ({
   };
   return (
     <>
-      <ToastContainer />
-
+        <ToastContainer/>
+    
       <Modal
         opened={opened}
         onClose={close}

@@ -23,10 +23,10 @@ import { toast, ToastContainer } from "react-toastify";
 type ContactFormValues = {
   checkIn: Date | null;
   checkOut: Date | null;
-  location: string;
+  location: string | null;
   members: number;
-  category: string;
-  contact: string | number | null;
+  category: string | null;
+  contact: string | null;
 };
 
 const ContactUs = () => {
@@ -34,10 +34,10 @@ const ContactUs = () => {
     initialValues: {
       checkIn: null,
       checkOut: null,
-      location: "",
+      location: null,
       members: 2,
-      category: "",
-      contact: null,
+      category: null,
+      contact: "",
     },
     validate: {
       checkIn: (value) => (value ? null : "Check-in date is required"),
@@ -45,7 +45,10 @@ const ContactUs = () => {
       location: (value) => (value ? null : "Location is required"),
       members: (value) => (value ? null : "Number of members is required"),
       category: (value) => (value ? null : "Hotel category is required"),
-      contact: (value) => (value ? null : "Contact number is required"),
+      contact: (value) =>
+        value && value?.length === 10
+          ? null
+          : "Enter a valid 10-digit contact number",
     },
   });
   const handleSubmit = async (
@@ -63,9 +66,19 @@ const ContactUs = () => {
 
       if (response.ok) {
         toast.success(
-          "Your request has been registered successfully. Our team will get back to you within 24 hours."
+          "Our team will get back to you within 24 hours. Thank You !!",
+          {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          }
         );
-        form.reset(); // ✅ Reset form fields
+        form.reset();
       } else {
         alert(data.error || "Something went wrong. Please try again.");
       }
@@ -135,7 +148,7 @@ const ContactUs = () => {
             style={{ alignContent: "center" }}
           >
             <form
-             //@ts-ignore 
+              //@ts-ignore
               onSubmit={form.onSubmit((values) => handleSubmit(values, form))}
             >
               <Stack gap={"xs"}>
@@ -146,7 +159,7 @@ const ContactUs = () => {
                   wrap={{ base: "wrap", sm: "nowrap" }}
                 >
                   <DateInput
-                    minDate={new Date()}
+                    minDate={form.values.checkIn || new Date()}
                     withAsterisk
                     w={"100%"}
                     label="Check-In Date"
@@ -154,7 +167,15 @@ const ContactUs = () => {
                     {...form.getInputProps("checkIn")}
                   />
                   <DateInput
-                    minDate={new Date()}
+                    minDate={
+                      form.values.checkIn
+                        ? new Date(
+                            new Date(form.values.checkIn).setDate(
+                              new Date(form.values.checkIn).getDate() + 2
+                            )
+                          )
+                        : new Date()
+                    }
                     withAsterisk
                     w={"100%"}
                     label="Check-Out Date"
@@ -243,14 +264,31 @@ const ContactUs = () => {
                     </Tooltip>
                   </Flex>
                   <NumberInput
+                    w={"100%"}
                     withAsterisk
                     hideControls
-                    prefix="+91 "
                     label="Contact Number"
                     placeholder="Enter your number"
                     type="tel"
-                    {...form.getInputProps("contact")}
-                    w={"100%"}
+                    value={form.values.contact ?? ""}
+                    // Parse out non-digit characters and limit to 10 digits
+                    parser={(value: string) =>
+                      value.replace(/\D/g, "").slice(0, 10)
+                    }
+                    // Format with +91 prefix
+                    formatter={(value: string) =>
+                      value
+                        ? `+91 ${value.slice(0, 5)} ${value.slice(5, 10)}`
+                        : ""
+                    }
+                    onChange={(value: string | number) => {
+                      const str =
+                        typeof value === "string" ? value : value?.toString();
+                      const digits =
+                        str?.replace(/\D/g, "").slice(0, 10) ?? null;
+                      form.setFieldValue("contact", digits || null);
+                    }}
+                    error={form.errors.contact}
                   />
                 </Flex>
 

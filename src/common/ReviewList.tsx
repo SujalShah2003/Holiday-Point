@@ -11,31 +11,10 @@ import {
   Modal,
   Box,
 } from "@mantine/core";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
+import { Carousel } from "@mantine/carousel";
 import { IconMapPin } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
-import classes from '../assets/css/app.module.css'
-
-const responsive = {
-  superLargeDesktop: {
-    // the naming can be any, depends on you.
-    breakpoint: { max: 4000, min: 3000 },
-    items: 5,
-  },
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 3,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-  },
-};
+import classes from "../assets/css/app.module.css";
 
 export interface Review {
   _id: string;
@@ -78,40 +57,48 @@ const ReviewList: React.FC<ReviewListProps> = ({ opened }) => {
         console.error("Error fetching reviews:", error);
       });
   };
-  
+
   return (
     <>
       {reviews?.length === 0 ? (
         <Text ta="center">No reviews found.</Text>
       ) : (
         <Carousel
-          responsive={responsive}
-          className={classes["react-multiple-carousel__arrow"]}
-          autoPlaySpeed={1000}
-          customTransition="all .5"
-          transitionDuration={500}
+          slideSize="33.333%" 
+          slidesToScroll={1}
+          align="start"
+          withIndicators
+          slideGap="md"
+          loop={true}
+          breakpoints={[
+            { maxWidth: 1024, slideSize: "50%" }, // Tablet: 2 cards
+            { maxWidth: 768, slideSize: "100%" }, // Mobile: 1 card
+          ]}
+          styles={{
+            control: { backgroundColor: "white", borderRadius: "50%" },
+          }}
         >
-          {reviews?.length > 0 &&
-            reviews
-              ?.slice()
-              ?.reverse()
-              ?.map((review) => (
+          {reviews
+            ?.slice()
+            ?.reverse()
+            ?.map((review) => (
+              <Carousel.Slide key={review._id}>
                 <Paper
                   shadow="sm"
                   p="lg"
                   radius="lg"
                   withBorder
-                  key={review._id}
                   h={200}
-                  style={{ marginRight: "16px", cursor: "pointer" }}
+                  style={{ cursor: "pointer", height: "100%" }}
                   onClick={() => handleClick(review?._id)}
                 >
                   <Flex direction="column" align="start" gap="md">
-                    {/* User Avatar and Name */}
                     <Flex
                       align="center"
                       direction={"row"}
                       w={"100%"}
+                      wrap={"wrap"}
+                      gap={{ base: "sm" }}
                       justify={"space-between"}
                     >
                       <Flex align={"center"} gap={"sm"}>
@@ -131,7 +118,6 @@ const ReviewList: React.FC<ReviewListProps> = ({ opened }) => {
                             <Text
                               size="sm"
                               c={"var(--text-gray-color)"}
-                              ta={"center"}
                               style={{ letterSpacing: 0.5 }}
                             >
                               {review.location}
@@ -139,24 +125,16 @@ const ReviewList: React.FC<ReviewListProps> = ({ opened }) => {
                           </Flex>
                         </Flex>
                       </Flex>
-                      <Flex direction={"column"} align={"end"} >
-                        <Rating value={review.rating} readOnly size="md" />
-                        <Text c={"var(--text-gray-color)"} ta={"end"} size="xs">
-                          {" "}
-                          {review?.createdAt || ""}
-                        </Text>
-                      </Flex>
+                      <Rating value={review.rating} readOnly size="md" />
                     </Flex>
 
-                    {/* Rating */}
-
-                    {/* Review Details */}
                     <Text size="sm" lineClamp={3}>
                       {review.reviewDetails}
                     </Text>
                   </Flex>
                 </Paper>
-              ))}
+              </Carousel.Slide>
+            ))}
         </Carousel>
       )}
 
@@ -169,13 +147,15 @@ const ReviewList: React.FC<ReviewListProps> = ({ opened }) => {
           size={"lg"}
           // h={"max-content"}
         >
-          <Flex direction="column"  p={"lg"} align="start" gap="md" h={300}>
+          <Flex direction="column" p={"lg"} align="start" gap="md" h={300}>
             {/* User Avatar and Name */}
             <Flex
               align="center"
               direction={"row"}
               w={"100%"}
               justify={"space-between"}
+              wrap={"wrap"}
+              gap={{ base: "sm" }}
             >
               <Flex align={"center"} gap={"sm"}>
                 <Avatar color="cyan" radius="xl">
@@ -212,7 +192,7 @@ const ReviewList: React.FC<ReviewListProps> = ({ opened }) => {
             </Flex>
 
             {/* detailReview Details */}
-            <Box h={"100%"} w={"100%"} >
+            <Box h={"100%"} w={"100%"}>
               <Text
                 size={"10px"}
                 fw={500}
@@ -221,13 +201,10 @@ const ReviewList: React.FC<ReviewListProps> = ({ opened }) => {
               >
                 Review
               </Text>
-              <Box
-                mt={5}
-                h={"100%"}
-                w={"100%"}
-                
-              >
-                <Text size="sm" pb={"xl"} >{detailReview.reviewDetails}</Text>
+              <Box mt={5} h={"100%"} w={"100%"}>
+                <Text size="sm" pb={"xl"}>
+                  {detailReview.reviewDetails}
+                </Text>
               </Box>
             </Box>
           </Flex>
