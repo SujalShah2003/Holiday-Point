@@ -40,7 +40,7 @@ const Banner = ({ scrollToSection }: BannerProps) => {
         <Flex
           pos={"relative"}
           h={"90%"}
-          w={"100%"}
+          w={{base:"90%",sm:"100%"}}
           align={"start"}
           justify={"center"}
           c={"white"}

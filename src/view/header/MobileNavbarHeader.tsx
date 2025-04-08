@@ -1,4 +1,4 @@
-import { Accordion, Button, UnstyledButton } from "@mantine/core";
+import { Accordion, Button, Text, UnstyledButton } from "@mantine/core";
 import classes from "../../assets/css/app.module.css";
 import { useState } from "react";
 
@@ -31,7 +31,9 @@ const MobileNavbarHeader = ({ scrollToSection }: MobileNavbarHeaderProps) => {
         onChange={setAccordionValue}
       >
         <Accordion.Item value="destination">
-          <Accordion.Control fw={600}>Destination</Accordion.Control>
+          <Accordion.Control>
+            <Text fw={600}>Destination</Text>
+          </Accordion.Control>
           <Accordion.Panel>
             <UnstyledButton
               onClick={() => handleClick("domestic")}

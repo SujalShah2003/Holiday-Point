@@ -35,7 +35,7 @@ const Footer = ({ scrollToSection }: FooterProps) => {
             style={{ cursor: "pointer" }}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           />
-          <Flex align="end" gap={5} mr="xl" direction="column">
+          <Flex align={{base:"start",sm:"end"}} gap={5} mr={{base:"unset",sm:"xl"}} direction="column">
             {/* Social Icons */}
             <Flex gap={5} align="center">
               <Text
@@ -76,11 +76,11 @@ const Footer = ({ scrollToSection }: FooterProps) => {
                 tt="uppercase"
                 c={"var(--primary-color)"}
                 fw={600}
-                fz={"xs"}
+                fz={"sm"}
               >
                 Email :{" "}
               </Text>
-              <Text ta={"center"} fz={"sm"}>
+              <Text ta={"center"} fz={"sm"}  >
                 enquirygujarat1@gmail.com
               </Text>
             </Flex>
@@ -95,23 +95,17 @@ const Footer = ({ scrollToSection }: FooterProps) => {
               >
                 Contact Info :{" "}
               </Text>
-              <Flex gap={5} align={"center"}>
-                <NumberFormatter
-                  prefix="+91 "
-                  value={9512121334}
-                  style={{ fontSize: "13px" }}
-                />
-                <Text fz="xs">- Vijay Shah</Text>
-              </Flex>
-
-              <Flex gap={5} align={"center"}>
-                <NumberFormatter
-                  prefix="+91 "
-                  value={9726739494}
-                  style={{ fontSize: "13px" }}
-                />
-                <Text fz="xs">- Rohan Shah</Text>
-              </Flex>
+              <NumberFormatter
+                prefix="+91 "
+                value={9512121334}
+                style={{ fontSize: "13px" }}
+              />
+              <Text>|</Text>
+              <NumberFormatter
+                prefix="+91 "
+                value={9726739494}
+                style={{ fontSize: "13px" }}
+              />
             </Flex>
           </Flex>
         </Flex>
@@ -128,6 +122,8 @@ const Footer = ({ scrollToSection }: FooterProps) => {
               lineHeight: 1.6,
               maxWidth: "800px",
             }}
+            my={{base:"md"}}
+
           >
             Book your tour with us for a budget-friendly adventure and top-notch
             service. Enjoy seamless travel, unforgettable experiences, and the

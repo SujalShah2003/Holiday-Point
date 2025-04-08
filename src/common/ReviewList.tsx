@@ -52,7 +52,7 @@ const ReviewList: React.FC<ReviewListProps> = ({ opened }) => {
         <Text ta="center">No reviews found.</Text>
       ) : (
         <Carousel
-          slideSize="33.333%"
+          slideSize={{base:"100%",sm:"33.333%"}}
           slidesToScroll={1}
           align="start"
           withIndicators
@@ -62,6 +62,7 @@ const ReviewList: React.FC<ReviewListProps> = ({ opened }) => {
           breakpoints={[
             { maxWidth: 1024, slideSize: "50%" }, // Tablet: 2 cards
             { maxWidth: 768, slideSize: "100%" }, // Mobile: 1 card
+            { maxWidth: 425, slideSize: "100%" }, // Mobile: 1 card
           ]}
           styles={{
             control: { backgroundColor: "white", borderRadius: "50%" },
@@ -77,11 +78,11 @@ const ReviewList: React.FC<ReviewListProps> = ({ opened }) => {
                   p="lg"
                   radius="lg"
                   withBorder
-                  h={200}
+                  h={225}
                   style={{ cursor: "pointer", height: "100%" }}
                   onClick={() => handleClick(review?._id)}
                 >
-                  <Flex direction="column" align="start" gap="md">
+                  <Flex direction="column" align="start" justify={"space-between"}  gap="md">
                     <Flex
                       align="center"
                       direction={"row"}
@@ -105,7 +106,7 @@ const ReviewList: React.FC<ReviewListProps> = ({ opened }) => {
                               style={{ marginRight: 5 }}
                             />
                             <Text
-                              size="sm"
+                              fz={{base:"xs",sm:"sm"}}
                               c={"var(--text-gray-color)"}
                               style={{ letterSpacing: 0.5 }}
                             >

@@ -20,8 +20,9 @@
 }
 
 .scrolltarget {
-    scroll-margin-top: 150px;
+    scroll-margin-top: 100px;
 }
+
 
 .hoverScale:hover .imagewrapper img {
     transform: scale(1.5);
