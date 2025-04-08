@@ -122,7 +122,7 @@ const Footer = ({ scrollToSection }: FooterProps) => {
               lineHeight: 1.6,
               maxWidth: "800px",
             }}
-            my={{base:"md"}}
+            my={{base:"md",sm:"unset"}}
 
           >
             Book your tour with us for a budget-friendly adventure and top-notch

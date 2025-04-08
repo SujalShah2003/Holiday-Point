@@ -9,6 +9,7 @@ import {
   Select,
   Stack,
   Text,
+  TextInput,
   Title,
   Tooltip,
 } from "@mantine/core";
@@ -20,6 +21,7 @@ import { IconInfoSmall } from "@tabler/icons-react";
 import { toast } from "react-toastify";
 
 type ContactFormValues = {
+  username: string | null;
   checkIn: Date | null;
   checkOut: Date | null;
   location: string | null;
@@ -31,6 +33,7 @@ type ContactFormValues = {
 const ContactUs = () => {
   const form = useForm({
     initialValues: {
+      username: "",
       checkIn: null,
       checkOut: null,
       location: null,
@@ -39,6 +42,7 @@ const ContactUs = () => {
       contact: "",
     },
     validate: {
+      username: (value) => (value ? null : "Name is required"),
       checkIn: (value) => (value ? null : "Check-in date is required"),
       checkOut: (value) => (value ? null : "Check-out date is required"),
       location: (value) => (value ? null : "Location is required"),
@@ -55,14 +59,17 @@ const ContactUs = () => {
     form: UseFormReturnType<ContactFormValues>
   ): Promise<void> => {
     try {
-      const response = await fetch("https://holiday-point-backend-rx2e.onrender.com/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-
+      const response = await fetch(
+        "https://holiday-point-backend-rx2e.onrender.com/api/contact",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(values),
+        }
+      );
+  
       const data: { error?: string; message?: string } = await response.json();
-
+  
       if (response.ok) {
         toast.success(
           "Our team will get back to you within 24 hours. Thank You !!",
@@ -88,7 +95,6 @@ const ContactUs = () => {
   };
   return (
     <>
-
       <Box my={{ base: "10%", md: "8%" }}>
         <Flex
           direction={"column"}
@@ -216,6 +222,13 @@ const ContactUs = () => {
                   wrap={{ base: "wrap", sm: "nowrap" }}
                   justify={"space-between"}
                 >
+                  <TextInput
+                    w={"100%"}
+                    withAsterisk
+                    label="Your Name"
+                    placeholder="Enter your full name"
+                    {...form.getInputProps("username")}
+                  />
                   <Flex align="center" gap="xs" w={"100%"} justify={"center"}>
                     <Button
                       radius={"50%"}
@@ -285,7 +298,7 @@ const ContactUs = () => {
                         typeof value === "string" ? value : value?.toString();
                       const digits =
                         str?.replace(/\D/g, "").slice(0, 10) ?? null;
-                        // @ts-ignore
+                      // @ts-ignore
                       form.setFieldValue("contact", digits || null);
                     }}
                     error={form.errors.contact}

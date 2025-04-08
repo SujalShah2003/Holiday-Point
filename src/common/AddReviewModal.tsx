@@ -29,6 +29,7 @@ const AddReviewModal = ({
   const checkIcon = <IconCheck size={20} />;
 
   const handleSubmit = async () => {
+    console.log({name,location,rating,reviewDetails})
     if (!name || !location || !rating || !reviewDetails) {
       setError(true);
       return;

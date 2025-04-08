@@ -68,8 +68,8 @@ const ReviewList: React.FC<ReviewListProps> = ({ opened }) => {
             control: { backgroundColor: "white", borderRadius: "50%" },
           }}
         >
-          {reviews
-            ?.slice()
+          {reviews?.length >0 && reviews
+            // ?.slice()
             ?.reverse()
             ?.map((review) => (
               <Carousel.Slide key={review._id}>
