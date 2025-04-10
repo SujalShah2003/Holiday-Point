@@ -1,9 +1,9 @@
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Link, Navigate, Route, Routes } from "react-router-dom";
 import { AppShell, Box, Center, Container, Loader } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import classes from "./assets/css/app.module.css";
 import Banner from "./view/components/Banner";
-import { useEffect, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 import AboutUs from "./view/components/AboutUs";
 import FloatingButton from "./view/components/FloatingButton";
 import DomesticPackages from "./view/components/DomesticPackages";
@@ -17,8 +17,9 @@ import Footer from "./view/footer/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdminPanel from "./view/admin/AdminPanel";
+import Dashboard from "./view/admin/Dashboard";
 
-function MainLayout() {
+const MainLayout = () => {
   const [opened, { toggle }] = useDisclosure();
   const [showScrollTop, setShowScrollTop] = useState(false);
 
@@ -101,9 +102,14 @@ function MainLayout() {
       </AppShell.Main>
     </AppShell>
   );
-}
+};
 
-export function App() {
+const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+  const isAdmin = localStorage.getItem("admin-username");
+  return isAdmin ? children : <Navigate to="/" />;
+};
+
+const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -114,19 +120,29 @@ export function App() {
   if (loading) {
     return (
       <Center h="100vh" w="100vw">
-        <Loader color="blue" size="lg" />
+        <Loader color="blue" size="lg" type="dots" />
       </Center>
     );
   }
 
   return (
     <BrowserRouter>
+      <ToastContainer />
       <Routes>
+        <Route path="/" element={<MainLayout />} />
         <Route path="/admin-panel" element={<AdminPanel />} />
-        <Route path="/*" element={<MainLayout />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

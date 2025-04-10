@@ -9,18 +9,21 @@ import {
 } from "@mantine/core";
 import Logo from "../../assets/img/logo/Logo.png";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const AdminPanel = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [adminData, setAdminData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("https://holiday-point-backend-rx2e.onrender.com/admin-data")
       .then((res) => res.json())
       .then((data) => {
-        console.log({data})
+        console.log(data);
         setAdminData(data);
       })
       .catch((error) => {
@@ -29,16 +32,33 @@ const AdminPanel = () => {
   }, []);
 
   const handleSubmit = () => {
-    // Dummy credentials for testing
-    const adminUser = "admin";
-    const adminPass = "1234";
+    const isAdmin = adminData.find(
+      (data: any) =>
+        data.admin_username == username && data.admin_password == password
+    );
 
-    if (username === adminUser && password === adminPass) {
-      alert("Login successful ✅");
-      setError("");
-      // You can navigate or show actual panel here
+    if (isAdmin) {
+      toast.success(`Login successfully !! Welcome ${username} 🎉`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+      });
+      localStorage.setItem("admin-username",username)
+      navigate('/dashboard')
     } else {
-      setError("Invalid username or password");
+      toast.error("Something went wrong !! please try after some time", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+      });
     }
   };
 
@@ -47,7 +67,7 @@ const AdminPanel = () => {
       <Flex
         w={"100vw"}
         h={"100vh"}
-        bg={"var(--mantine-color-gray-4)"}
+        bg={"var(--mantine-color-gray-3)"}
         justify={"center"}
         align={"center"}
         direction={"column"}
@@ -56,12 +76,12 @@ const AdminPanel = () => {
         <Image src={Logo} w={80} h={100} alt="Logo" />
 
         <Paper
-          p={"lg"}
-          bg={"var(--mantine-color-gray-3)"}
-          shadow="md"
-          radius="md"
+          p={"xl"}
+          bg={"var(--mantine-color-gray-2)"}
+          shadow="lg"
+          radius="lg"
           w={"100%"}
-          maw={{ base: 250, xs: 500 }}
+          maw={{ base: 300, xs: 500 }}
         >
           <Text fw={600} ta={"center"} mb="md">
             Admin Panel Of Holiday Point
@@ -89,7 +109,11 @@ const AdminPanel = () => {
             </Text>
           )}
 
-          <Button fullWidth onClick={handleSubmit}>
+          <Button
+            fullWidth
+            onClick={handleSubmit}
+            mt={error.length == 0 ? "lg" : "unset"}
+          >
             Login
           </Button>
         </Paper>
