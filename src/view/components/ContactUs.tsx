@@ -76,7 +76,7 @@ const ContactUs = () => {
           {
             position: "top-right",
             autoClose: 5000,
-            hideProgressBar: false,
+            hideProgressBar: true,
             closeOnClick: false,
             pauseOnHover: true,
             draggable: true,

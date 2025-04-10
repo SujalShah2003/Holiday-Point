@@ -15,7 +15,6 @@ import { useNavigate } from "react-router-dom";
 const AdminPanel = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [adminData, setAdminData] = useState([]);
   const navigate = useNavigate();
 
@@ -23,11 +22,18 @@ const AdminPanel = () => {
     fetch("https://holiday-point-backend-rx2e.onrender.com/admin-data")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setAdminData(data);
       })
       .catch((error) => {
-        console.error("Error fetching reviews:", error);
+        toast.error("Unable to fetch the data", {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+        });
       });
   }, []);
 
@@ -41,19 +47,19 @@ const AdminPanel = () => {
       toast.success(`Login successfully !! Welcome ${username} 🎉`, {
         position: "top-right",
         autoClose: 3000,
-        hideProgressBar: false,
+        hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         theme: "light",
       });
-      localStorage.setItem("admin-username",username)
-      navigate('/dashboard')
+      localStorage.setItem("admin-username", username);
+      navigate("/dashboard");
     } else {
       toast.error("Something went wrong !! please try after some time", {
         position: "top-right",
         autoClose: 3000,
-        hideProgressBar: false,
+        hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
@@ -103,17 +109,7 @@ const AdminPanel = () => {
             mb="sm"
           />
 
-          {error && (
-            <Text color="red" size="sm" mb="sm">
-              {error}
-            </Text>
-          )}
-
-          <Button
-            fullWidth
-            onClick={handleSubmit}
-            mt={error.length == 0 ? "lg" : "unset"}
-          >
+          <Button fullWidth onClick={handleSubmit} mt={"lg"}>
             Login
           </Button>
         </Paper>
