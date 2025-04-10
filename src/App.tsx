@@ -23,7 +23,7 @@ import ContactUs from "./view/components/ContactUs";
 import Footer from "./view/footer/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AdminPanel from "./view/admin/App"; 
+import AdminPanel from "./view/admin/App";
 
 function MainLayout() {
   const [opened, { toggle }] = useDisclosure();
@@ -76,16 +76,28 @@ function MainLayout() {
           <Container className={classes.scrolltarget} id="domestic" size="full">
             <DomesticPackages />
           </Container>
-          <Container className={classes.scrolltarget} id="international" size="full">
+          <Container
+            className={classes.scrolltarget}
+            id="international"
+            size="full"
+          >
             <InternationalPackages />
           </Container>
           <Container className={classes.scrolltarget} id="service" size="full">
             <Service />
           </Container>
-          <Container className={classes.scrolltarget} id="testimonials" size="full">
+          <Container
+            className={classes.scrolltarget}
+            id="testimonials"
+            size="full"
+          >
             <Testimonals />
           </Container>
-          <Container className={classes.scrolltarget} id="contact_us" size="full">
+          <Container
+            className={classes.scrolltarget}
+            id="contact_us"
+            size="full"
+          >
             <ContactUs />
           </Container>
 
@@ -117,8 +129,8 @@ export function App() {
   return (
     <BrowserRouter>
       <ToastContainer />
+      <Link to="/admin">Sujal Shah</Link>
       <Routes>
-        <Link to="/admin">Sujal Shah</Link>
         <Route path="/*" element={<MainLayout />} />
       </Routes>
     </BrowserRouter>
