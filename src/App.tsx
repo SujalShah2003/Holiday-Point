@@ -22,7 +22,7 @@ import ContactUs from "./view/components/ContactUs";
 import Footer from "./view/footer/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AdminPanel from "./view/admin/App"; // Your new admin page
+import AdminPanel from "./view/admin/App"; 
 
 function MainLayout() {
   const [opened, { toggle }] = useDisclosure();
@@ -117,8 +117,8 @@ export function App() {
     <BrowserRouter>
       <ToastContainer />
       <Routes>
-        <Route path="/admin" element={<AdminPanel />} />
-        <Route path="*" element={<MainLayout />} />
+        <Route path="/admin"  element={<div>Hardcoded Admin Route ✅</div>} />
+        <Route path="/*" element={<MainLayout />} />
       </Routes>
     </BrowserRouter>
   );
