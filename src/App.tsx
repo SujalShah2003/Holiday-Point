@@ -17,7 +17,6 @@ import Footer from "./view/footer/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdminPanel from "./view/admin/AdminPanel";
-// import AdminPanel from "./view/admin/AdminPanel";
 
 function MainLayout() {
   const [opened, { toggle }] = useDisclosure();

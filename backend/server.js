@@ -28,6 +28,15 @@ const reviewSchema = new Schema({
 });
 const Review = model("Review", reviewSchema);
 
+const adminDataSchema = new Schema({
+  username: { type: String, required: true },
+  location: { type: String, required: true },
+  rating: { type: Number, required: true },
+  reviewDetails: { type: String, required: true },
+  time: { type: String },
+});
+const AdminData = model("admin-user", adminDataSchema);
+
 // Contact Schema
 const contactSchema = new Schema({
   username: { type: String, required: true },
@@ -131,6 +140,16 @@ app.post("/api/contact", async (req, res) => {
   }
 });
 
+// GET All Admin Data
+app.get("/admin-data", async (req, res) => {
+  try {
+    const reviews = await AdminData.find(); // Fetch all reviews from MongoDB
+    res.status(200).json(reviews);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 // Start Server
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
