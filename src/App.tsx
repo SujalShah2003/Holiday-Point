@@ -131,8 +131,7 @@ export function App() {
       <ToastContainer />
       <Routes>
         <Route path="/admin" element={<AdminPanel />} />
-
-        <Route path="/*" element={<MainLayout />} />
+        <Route path="*" element={<MainLayout />} />
       </Routes>
     </BrowserRouter>
   );
