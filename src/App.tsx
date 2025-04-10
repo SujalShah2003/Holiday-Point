@@ -1,11 +1,4 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-  Link,
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AppShell, Box, Center, Container, Loader } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import classes from "./assets/css/app.module.css";
@@ -102,6 +95,9 @@ function MainLayout() {
           </Container>
 
           <Footer scrollToSection={scrollToSection} />
+          <div style={{ textAlign: "center", margin: "1rem" }}>
+            <Link to="/admin">Admin Panel</Link>
+          </div>
         </Box>
 
         {showScrollTop && <FloatingButton />}
@@ -127,13 +123,10 @@ export function App() {
   }
 
   return (
-    <BrowserRouter>
+    <>
       <ToastContainer />
-      <Routes>
-        <Route path="/admin" element={<div>AdminPanel from App File</div>} /> 
-        <Route path="/*" element={<MainLayout />} />
-      </Routes>
-    </BrowserRouter>
+      <MainLayout />
+    </>
   );
 }
 
