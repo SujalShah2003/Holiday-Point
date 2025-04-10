@@ -130,7 +130,7 @@ export function App() {
     <BrowserRouter>
       <ToastContainer />
       <Routes>
-        <Route path="/admin" element={<div>AdminPanel from App File</div>} />
+        <Route path="/admin" element={<div>AdminPanel from App File</div>} /> 
         <Route path="/*" element={<MainLayout />} />
       </Routes>
     </BrowserRouter>
