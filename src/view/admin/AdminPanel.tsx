@@ -20,6 +20,7 @@ const AdminPanel = () => {
     fetch("https://holiday-point-backend-rx2e.onrender.com/admin-data")
       .then((res) => res.json())
       .then((data) => {
+        console.log({data})
         setAdminData(data);
       })
       .catch((error) => {
