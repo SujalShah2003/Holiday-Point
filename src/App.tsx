@@ -95,7 +95,9 @@ function MainLayout() {
           </Container>
 
           <Footer scrollToSection={scrollToSection} />
-          
+          <div style={{ textAlign: "center", margin: "1rem" }}>
+            <Link to="/admin">Admin Panel</Link>
+          </div>
         </Box>
 
         {showScrollTop && <FloatingButton />}
