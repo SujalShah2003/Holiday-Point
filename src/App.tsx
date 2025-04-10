@@ -23,7 +23,7 @@ import ContactUs from "./view/components/ContactUs";
 import Footer from "./view/footer/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AdminPanel from "./view/admin/AdminPanel";
+// import AdminPanel from "./view/admin/AdminPanel";
 
 function MainLayout() {
   const [opened, { toggle }] = useDisclosure();
@@ -130,7 +130,7 @@ export function App() {
     <BrowserRouter>
       <ToastContainer />
       <Routes>
-        <Route path="/admin" element={<AdminPanel />} />
+        <Route path="/admin" element={<div>AdminPanel from App File</div>} />
         <Route path="/*" element={<MainLayout />} />
       </Routes>
     </BrowserRouter>
