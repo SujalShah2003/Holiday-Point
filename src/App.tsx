@@ -1,3 +1,10 @@
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 import { AppShell, Box, Center, Container, Loader } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import classes from "./assets/css/app.module.css";
@@ -15,11 +22,11 @@ import ContactUs from "./view/components/ContactUs";
 import Footer from "./view/footer/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AdminPanel from "./view/admin/App"; // Your new admin page
 
-export function App() {
+function MainLayout() {
   const [opened, { toggle }] = useDisclosure();
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   const scrollToSection = (id: any) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -28,18 +35,73 @@ export function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 100); // show after 100px
+      setShowScrollTop(window.scrollY > 100);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+  return (
+    <AppShell
+      header={{ height: 80 }}
+      navbar={{
+        width: 300,
+        breakpoint: "sm",
+        collapsed: { desktop: true, mobile: !opened },
+      }}
+    >
+      <AppShell.Header withBorder>
+        <WebHeader
+          opened={opened}
+          toggle={toggle}
+          scrollToSection={scrollToSection}
+        />
+      </AppShell.Header>
 
+      <AppShell.Navbar py="md" px={4}>
+        <MobileNavbarHeader scrollToSection={scrollToSection} />
+      </AppShell.Navbar>
+
+      <AppShell.Main>
+        <Banner
+          opened={opened}
+          toggle={toggle}
+          scrollToSection={scrollToSection}
+        />
+        <Box p={"var(--mantine-spacing-xs) var(--mantine-spacing-lg)"}>
+          <Container className={classes.scrolltarget} id="about_us" size="full">
+            <AboutUs />
+          </Container>
+          <Container className={classes.scrolltarget} id="domestic" size="full">
+            <DomesticPackages />
+          </Container>
+          <Container className={classes.scrolltarget} id="international" size="full">
+            <InternationalPackages />
+          </Container>
+          <Container className={classes.scrolltarget} id="service" size="full">
+            <Service />
+          </Container>
+          <Container className={classes.scrolltarget} id="testimonials" size="full">
+            <Testimonals />
+          </Container>
+          <Container className={classes.scrolltarget} id="contact_us" size="full">
+            <ContactUs />
+          </Container>
+
+          <Footer scrollToSection={scrollToSection} />
+        </Box>
+
+        {showScrollTop && <FloatingButton />}
+      </AppShell.Main>
+    </AppShell>
+  );
+}
+
+export function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 2000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -50,90 +112,15 @@ export function App() {
       </Center>
     );
   }
+
   return (
-    <>
+    <BrowserRouter>
       <ToastContainer />
-
-      <AppShell
-        header={{ height: 80 }}
-        navbar={{
-          width: 300,
-          breakpoint: "sm",
-          collapsed: { desktop: true, mobile: !opened },
-        }}
-      >
-        {/* Header */}
-        <AppShell.Header withBorder>
-          <WebHeader
-            opened={opened}
-            toggle={toggle}
-            scrollToSection={scrollToSection}
-          />
-        </AppShell.Header>
-
-        {/* Mobile Navbar */}
-        <AppShell.Navbar py="md" px={4}>
-          <MobileNavbarHeader scrollToSection={scrollToSection} />
-        </AppShell.Navbar>
-
-        {/* Main Content with Sections */}
-        <AppShell.Main>
-          <Banner
-            opened={opened}
-            toggle={toggle}
-            scrollToSection={scrollToSection}
-          />
-          <Box p={"var(--mantine-spacing-xs) var(--mantine-spacing-lg)"}>
-            <Container
-              className={classes.scrolltarget}
-              id="about_us"
-              size="full"
-            >
-              <AboutUs />
-            </Container>
-            <Container
-              className={classes.scrolltarget}
-              id="domestic"
-              size="full"
-            >
-              <DomesticPackages />
-            </Container>
-            <Container
-              className={classes.scrolltarget}
-              id="international"
-              size="full"
-            >
-              <InternationalPackages />
-            </Container>
-            <Container
-              className={classes.scrolltarget}
-              id="service"
-              size="full"
-            >
-              <Service />
-            </Container>
-            <Container
-              className={classes.scrolltarget}
-              id="testimonials"
-              size="full"
-            >
-              <Testimonals />
-            </Container>
-            <Container
-              className={classes.scrolltarget}
-              id="contact_us"
-              size="full"
-            >
-              <ContactUs />
-            </Container>
-
-            <Footer scrollToSection={scrollToSection} />
-          </Box>
-
-          {showScrollTop && <FloatingButton />}
-        </AppShell.Main>
-      </AppShell>
-    </>
+      <Routes>
+        <Route path="/admin" element={<AdminPanel />} />
+        <Route path="/*" element={<MainLayout />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
