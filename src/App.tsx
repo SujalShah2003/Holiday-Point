@@ -4,6 +4,7 @@ import {
   Route,
   Navigate,
   useLocation,
+  Link,
 } from "react-router-dom";
 import { AppShell, Box, Center, Container, Loader } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
@@ -117,7 +118,7 @@ export function App() {
     <BrowserRouter>
       <ToastContainer />
       <Routes>
-        <Route path="/admin"  element={<div>Hardcoded Admin Route ✅</div>} />
+        <Link to="/admin">Sujal Shah</Link>
         <Route path="/*" element={<MainLayout />} />
       </Routes>
     </BrowserRouter>
