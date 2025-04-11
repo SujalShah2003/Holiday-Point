@@ -113,8 +113,8 @@ const AdminContactUs = () => {
             ?.slice()
             ?.reverse()
             ?.map((item) => (
-              <Accordion.Item key={item._id} value={item._id} p={5}>
-                <Accordion.Control icon={<IconUser size={20} />}>
+              <Accordion.Item bg={"white"} key={item._id} value={item._id} p={5}>
+                <Accordion.Control   icon={<IconUser size={20} />}>
                   {item?.username}
                 </Accordion.Control>
                 <Accordion.Panel>
