@@ -141,9 +141,9 @@ app.post("/api/contact", async (req, res) => {
 });
 
 // GET All Admin Data
-app.get("/admin-data", async (req, res) => {
+app.post("/admin-login", async (req, res) => {
   const { username, password } = req.body;
-  
+
   try {
     const admin = await AdminData.findOne({
       admin_username: username,
@@ -166,6 +166,7 @@ app.get("/admin-data", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 
 // Start Server
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

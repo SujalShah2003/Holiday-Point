@@ -40,7 +40,7 @@ const AdminPanel = () => {
   const handleSubmit = async () => {
     try {
       const res = await fetch(
-        "https://holiday-point-backend-rx2e.onrender.com/admin-data",
+        "https://holiday-point-backend-rx2e.onrender.com/admin-login",
         {
           method: "POST",
           headers: {
