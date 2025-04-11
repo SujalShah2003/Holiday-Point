@@ -32,7 +32,7 @@ const ReviewList: React.FC<ReviewListProps> = ({ opened }) => {
       .catch((error) => {
         console.error("Error fetching reviews:", error);
       });
-  }, [opened]);
+  }, []);
 
   const handleClick = (id: string) => {
     fetch(`https://holiday-point-backend-rx2e.onrender.com/api/reviews/${id}`)
@@ -52,7 +52,7 @@ const ReviewList: React.FC<ReviewListProps> = ({ opened }) => {
         <Text ta="center">No reviews found.</Text>
       ) : (
         <Carousel
-          slideSize={{base:"100%",sm:"33.333%"}}
+          slideSize={{ base: "100%", sm: "33.333%" }}
           slidesToScroll={1}
           align="start"
           withIndicators
@@ -68,63 +68,69 @@ const ReviewList: React.FC<ReviewListProps> = ({ opened }) => {
             control: { backgroundColor: "white", borderRadius: "50%" },
           }}
         >
-          {reviews?.length >0 && reviews
-            // ?.slice()
-            ?.reverse()
-            ?.map((review) => (
-              <Carousel.Slide key={review._id}>
-                <Paper
-                  shadow="sm"
-                  p="lg"
-                  radius="lg"
-                  withBorder
-                  h={225}
-                  style={{ cursor: "pointer", height: "100%" }}
-                  onClick={() => handleClick(review?._id)}
-                >
-                  <Flex direction="column" align="start" justify={"space-between"}  gap="md">
+          {reviews?.length > 0 &&
+            reviews
+              // ?.slice()
+              ?.reverse()
+              ?.map((review) => (
+                <Carousel.Slide key={review._id}>
+                  <Paper
+                    shadow="sm"
+                    p="lg"
+                    radius="lg"
+                    withBorder
+                    h={225}
+                    style={{ cursor: "pointer", height: "100%" }}
+                    onClick={() => handleClick(review?._id)}
+                  >
                     <Flex
-                      align="center"
-                      direction={"row"}
-                      w={"100%"}
-                      wrap={"wrap"}
-                      gap={{ base: "sm" }}
+                      direction="column"
+                      align="start"
                       justify={"space-between"}
+                      gap="md"
                     >
-                      <Flex align={"center"} gap={"sm"}>
-                        <Avatar color="cyan" radius="xl">
-                          {review.username.slice(0, 2).toUpperCase()}
-                        </Avatar>
-                        <Flex direction={"column"} align={"start"}>
-                          <Text fw={500} tt={"capitalize"}>
-                            {review.username}
-                          </Text>
-                          <Flex align={"center"}>
-                            <IconMapPin
-                              size={13}
-                              color="var(--text-gray-color)"
-                              style={{ marginRight: 5 }}
-                            />
-                            <Text
-                              fz={{base:"xs",sm:"sm"}}
-                              c={"var(--text-gray-color)"}
-                              style={{ letterSpacing: 0.5 }}
-                            >
-                              {review.location}
+                      <Flex
+                        align="center"
+                        direction={"row"}
+                        w={"100%"}
+                        wrap={"wrap"}
+                        gap={{ base: "sm" }}
+                        justify={"space-between"}
+                      >
+                        <Flex align={"center"} gap={"sm"}>
+                          <Avatar color="cyan" radius="xl">
+                            {review.username.slice(0, 2).toUpperCase()}
+                          </Avatar>
+                          <Flex direction={"column"} align={"start"}>
+                            <Text fw={500} tt={"capitalize"}>
+                              {review.username}
                             </Text>
+                            <Flex align={"center"}>
+                              <IconMapPin
+                                size={13}
+                                color="var(--text-gray-color)"
+                                style={{ marginRight: 5 }}
+                              />
+                              <Text
+                                fz={{ base: "xs", sm: "sm" }}
+                                c={"var(--text-gray-color)"}
+                                style={{ letterSpacing: 0.5 }}
+                              >
+                                {review.location}
+                              </Text>
+                            </Flex>
                           </Flex>
                         </Flex>
+                        <Rating value={review.rating} readOnly size="md" />
                       </Flex>
-                      <Rating value={review.rating} readOnly size="md" />
-                    </Flex>
 
-                    <Text size="sm" lineClamp={3}>
-                      {review.reviewDetails}
-                    </Text>
-                  </Flex>
-                </Paper>
-              </Carousel.Slide>
-            ))}
+                      <Text size="sm" lineClamp={3}>
+                        {review.reviewDetails}
+                      </Text>
+                    </Flex>
+                  </Paper>
+                </Carousel.Slide>
+              ))}
         </Carousel>
       )}
 

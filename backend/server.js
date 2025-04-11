@@ -70,6 +70,20 @@ app.get("/api/reviews/:id", async (req, res) => {
   }
 });
 
+// DELETE REVIEW BY ID
+app.delete("/api/reviews/:id", async (req, res) => {
+  try {
+    const deletedReview = await Review.findByIdAndDelete(req.params.id);
+    if (!deletedReview) {
+      return res.status(404).json({ message: "Review not found" });
+    }
+    res.status(200).json({ message: "Review deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 // POST new review
 app.post("/api/reviews", async (req, res) => {
   try {
@@ -145,9 +159,7 @@ app.post("/admin-login", async (req, res) => {
       admin_username: username.trim(),
       admin_password: password.trim(),
     });
-    console.log({admin})
     if (admin) {
-      console.log({admin})
       res.status(200).json({
         username: admin.admin_username,
         isAdmin: true,

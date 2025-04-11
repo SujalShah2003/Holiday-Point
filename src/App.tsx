@@ -17,7 +17,7 @@ import Footer from "./view/footer/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdminPanel from "./view/admin/AdminPanel";
-import Dashboard from "./view/admin/Dashboard";
+import AdminLogin from "./view/admin/AdminLogin";
 
 const MainLayout = () => {
   const [opened, { toggle }] = useDisclosure();
@@ -130,12 +130,12 @@ const App = () => {
       <ToastContainer />
       <Routes>
         <Route path="/" element={<MainLayout />} />
-        <Route path="/admin-panel" element={<AdminPanel />} />
+        <Route path="/admin-panel" element={<AdminLogin />} />
         <Route
           path="/dashboard"
           element={
             <ProtectedRoute>
-              <Dashboard />
+              <AdminPanel />
             </ProtectedRoute>
           }
         />

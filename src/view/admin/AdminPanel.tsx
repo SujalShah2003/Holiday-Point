@@ -1,125 +1,131 @@
 import {
-  Button,
-  Flex,
+  AppShell,
+  Burger,
+  Group,
   Image,
-  Paper,
-  PasswordInput,
+  UnstyledButton,
   Text,
-  TextInput,
+  Box,
+  Stack,
+  Flex,
+  Avatar,
+  Title,
+  Button,
 } from "@mantine/core";
-import Logo from "../../assets/img/logo/Logo.png";
+import { useDisclosure } from "@mantine/hooks";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import Logo from "../../assets/img/logo/Logo.png";
 import { useNavigate } from "react-router-dom";
+import AdminReview from "./AdminReview";
 
 const AdminPanel = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [adminData, setAdminData] = useState([]);
+  const [opened, { toggle }] = useDisclosure();
+  const [activeSection, setActiveSection] = useState("reviews");
   const navigate = useNavigate();
-
-  
-
-  const handleSubmit = async () => {
-    try {
-      const res = await fetch(
-        "https://holiday-point-backend-rx2e.onrender.com/admin-login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username, password }),
-        }
-      );
-
-      const data = await res.json();
-      console.log({data})
-      setAdminData(data);
-
-      if (data.isAdmin) {
-        toast.success(`Login successful! Welcome ${data.username} 🎉`, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "light",
-        });
-        localStorage.setItem("admin-username", data.username);
-        navigate("/dashboard");
-      } else {
-        toast.error("Invalid credentials. Please try again.", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "colored",
-        });
-      }
-    } catch (err) {
-      toast.error("Something went wrong. Please try again later.", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "colored",
-      });
+  const renderContent = () => {
+    switch (activeSection) {
+      case "reviews":
+        return <AdminReview/>;
+      case "users":
+        return <Text> Manage Users</Text>;
+      case "settings":
+        return <Text> Settings Panel</Text>;
+      default:
+        return <Text>Welcome to the Admin Panel</Text>;
     }
   };
+  const handlelogout = () => {
+    localStorage.removeItem("admin-username");
+    navigate("/");
+  };
 
+  useEffect(() => {
+    const adminData = localStorage.getItem("admin-username");
+    if (adminData?.length == 0) {
+      navigate("/");
+    }
+  }, []);
   return (
-    <>
-      <Flex
-        w={"100vw"}
-        h={"100vh"}
-        bg={"var(--mantine-color-gray-3)"}
-        justify={"center"}
-        align={"center"}
-        direction={"column"}
-        gap={"lg"}
-      >
-        <Image src={Logo} w={80} h={100} alt="Logo" />
+    <AppShell
+      header={{ height: 70 }}
+      navbar={{ width: 300, breakpoint: "sm", collapsed: { mobile: !opened } }}
+      padding="md"
+      bg={"var(--mantine-color-gray-1)"}
+    >
+      <AppShell.Header>
+        <Group h="100%" px="md">
+          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+          <Image
+            src={Logo}
+            w={50}
+            h={50}
+            alt="Logo"
+            ml={{ base: "unset", xs: "md" }}
+          />
+        </Group>
+      </AppShell.Header>
 
-        <Paper
-          p={"xl"}
-          bg={"var(--mantine-color-gray-2)"}
-          shadow="lg"
-          radius="lg"
+      <AppShell.Navbar p="md">
+        <Flex
           w={"100%"}
-          maw={{ base: 300, xs: 500 }}
+          h={"100%"}
+          justify={"space-between"}
+          direction={"column"}
         >
-          <Text fw={600} ta={"center"} mb="md">
-            Admin Panel Of Holiday Point
-          </Text>
+          <Stack mb="md">
+            <UnstyledButton
+              onClick={() => setActiveSection("reviews")}
+              w={"100%"}
+              p={"sm"}
+            >
+              Reviews
+            </UnstyledButton>
 
-          <TextInput
-            label="Username"
-            placeholder="Enter username"
-            value={username}
-            onChange={(e) => setUsername(e.currentTarget.value)}
-            mb="sm"
-          />
+            <UnstyledButton
+              onClick={() => setActiveSection("users")}
+              w={"100%"}
+              p={"sm"}
+            >
+              Users
+            </UnstyledButton>
 
-          <PasswordInput
-            label="Password"
-            placeholder="Enter password"
-            value={password}
-            onChange={(e) => setPassword(e.currentTarget.value)}
-            mb="sm"
-          />
+            <UnstyledButton
+              onClick={() => setActiveSection("settings")}
+              w={"100%"}
+              p={"sm"}
+            >
+              Settings
+            </UnstyledButton>
+          </Stack>
+          <Box>
+            <Flex align={"center"} gap={"sm"} style={{ cursor: "default" }}>
+              <Avatar
+                radius="md"
+                w={50}
+                h={50}
+                color={"var(--primary-color)"}
+              />
+              <Text fz={"h2"} fw={700} truncate="end">
+                {localStorage.getItem("admin-username")}
+              </Text>
+            </Flex>
+            <Button
+              variant="default"
+              bg={"black"}
+              c={"white"}
+              w={"100%"}
+              radius={"md"}
+              mt={"sm"}
+              onClick={handlelogout}
+            >
+              Log out
+            </Button>
+          </Box>
+        </Flex>
+      </AppShell.Navbar>
 
-          <Button fullWidth onClick={handleSubmit} mt={"lg"}>
-            Login
-          </Button>
-        </Paper>
-      </Flex>
-    </>
+      <AppShell.Main mx={"sm"}>{renderContent()}</AppShell.Main>
+    </AppShell>
   );
 };
 
