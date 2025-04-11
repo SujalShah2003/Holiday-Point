@@ -18,6 +18,9 @@ connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
+
+// -------------------------------------- Reviews ------------------------------------------------------------ 
+
 // Review Schema
 const reviewSchema = new Schema({
   username: { type: String, required: true },
@@ -28,25 +31,6 @@ const reviewSchema = new Schema({
 });
 const Review = model("Review", reviewSchema);
 
-const adminDataSchema = new Schema({
-  admin_username: { type: String, required: true },
-  admin_password:{type : String,required : true},
-});
-const AdminData = model("admin-user", adminDataSchema);
-
-// Contact Schema
-const contactSchema = new Schema({
-  username: { type: String, required: true },
-  checkIn: { type: Date, required: true },
-  checkOut: { type: Date, required: true },
-  location: { type: String, required: true },
-  members: { type: Number, required: true },
-  category: { type: String, required: true },
-  contact: { type: String, required: true },
-  time: { type: String }, // Optional - save submission time in IST
-});
-
-const Contact = model("Contact", contactSchema);
 
 // GET all reviews
 app.get("/api/reviews", async (req, res) => {
@@ -116,6 +100,22 @@ app.post("/api/reviews", async (req, res) => {
   }
 });
 
+// ---------------------------------------------- Contact Us ----------------------------------------------------
+
+// Contact Schema
+const contactSchema = new Schema({
+  username: { type: String, required: true },
+  checkIn: { type: Date, required: true },
+  checkOut: { type: Date, required: true },
+  location: { type: String, required: true },
+  members: { type: Number, required: true },
+  category: { type: String, required: true },
+  contact: { type: String, required: true },
+  time: { type: String }, // Optional - save submission time in IST
+});
+
+const Contact = model("Contact", contactSchema);
+
 // GET All Contacts
 app.get("/api/contact-details", async (req, res) => {
   try {
@@ -126,6 +126,21 @@ app.get("/api/contact-details", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+// DELETE Contact Info by ID
+app.delete("/api/contact-details/:id", async (req, res) => {
+  try {
+    const deletedContact = await Contact.findByIdAndDelete(req.params.id);
+    if (!deletedContact) {
+      return res.status(404).json({ message: "Review not found" });
+    }
+    res.status(200).json({ message: "Review deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 
 // POST Contact Details
 app.post("/api/contact", async (req, res) => {
@@ -161,6 +176,15 @@ app.post("/api/contact", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+// ------------------------------------------------------ Admin Login --------------------------------------------------
+
+// Admin Login Schema
+const adminDataSchema = new Schema({
+  admin_username: { type: String, required: true },
+  admin_password:{type : String,required : true},
+});
+const AdminData = model("admin-user", adminDataSchema);
 
 // GET All Admin Data
 app.post("/admin-login", async (req, res) => {

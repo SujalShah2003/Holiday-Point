@@ -30,8 +30,8 @@ const AdminPanel = () => {
         return <AdminReview />;
       case "contact_us":
         return <AdminContactUs />;
-      case "settings":
-        return <Text> Settings Panel</Text>;
+      // case "settings":
+      //   return <Text> Settings Panel</Text>;
       default:
         return <Text>Welcome to the Admin Panel</Text>;
     }
@@ -115,7 +115,7 @@ const AdminPanel = () => {
               Contact Us
             </UnstyledButton>
 
-            <UnstyledButton
+            {/* <UnstyledButton
               onClick={() => {
                 setActiveSection("settings");
                 toggle();
@@ -133,7 +133,7 @@ const AdminPanel = () => {
               }}
             >
               Settings
-            </UnstyledButton>
+            </UnstyledButton> */}
           </Stack>
           <Box>
             <Flex align={"center"} gap={"sm"} style={{ cursor: "default" }}>
