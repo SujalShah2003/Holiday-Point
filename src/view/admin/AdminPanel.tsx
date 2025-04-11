@@ -37,26 +37,46 @@ const AdminPanel = () => {
       });
   }, []);
 
-  const handleSubmit = () => {
-    const isAdmin = adminData.find(
-      (data: any) =>
-        data.admin_username == username && data.admin_password == password
-    );
+  const handleSubmit = async () => {
+    try {
+      const res = await fetch(
+        "https://holiday-point-backend-rx2e.onrender.com/admin-data",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        }
+      );
 
-    if (isAdmin) {
-      toast.success(`Login successfully !! Welcome ${username} 🎉`, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "light",
-      });
-      localStorage.setItem("admin-username", username);
-      navigate("/dashboard");
-    } else {
-      toast.error("Something went wrong !! please try after some time", {
+      const data = await res.json();
+
+      if (data.isAdmin) {
+        toast.success(`Login successful! Welcome ${data.username} 🎉`, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+        });
+        localStorage.setItem("admin-username", data.username);
+        navigate("/dashboard");
+      } else {
+        toast.error("Invalid credentials. Please try again.", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "colored",
+        });
+      }
+    } catch (err) {
+      toast.error("Something went wrong. Please try again later.", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: true,

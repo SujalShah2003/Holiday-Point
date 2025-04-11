@@ -142,9 +142,25 @@ app.post("/api/contact", async (req, res) => {
 
 // GET All Admin Data
 app.get("/admin-data", async (req, res) => {
+  const { username, password } = req.body;
+  
   try {
-    const reviews = await AdminData.find(); // Fetch all reviews from MongoDB
-    res.status(200).json(reviews);
+    const admin = await AdminData.findOne({
+      admin_username: username,
+      admin_password: password,
+    });
+
+    if (admin) {
+      res.status(200).json({
+        username: admin.admin_username,
+        isAdmin: true,
+      });
+    } else {
+      res.status(200).json({
+        username: "",
+        isAdmin: false,
+      });
+    }
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Internal Server Error" });
