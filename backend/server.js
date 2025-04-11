@@ -143,13 +143,13 @@ app.post("/api/contact", async (req, res) => {
 // GET All Admin Data
 app.post("/admin-login", async (req, res) => {
   const { username, password } = req.body;
-
+  console.log({username,password})
   try {
     const admin = await AdminData.findOne({
       admin_username: username,
       admin_password: password,
     });
-
+    
     if (admin) {
       res.status(200).json({
         username: admin.admin_username,

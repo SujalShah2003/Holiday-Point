@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 const Dashboard = () => {
   const [opened, { toggle }] = useDisclosure();
   const [activeSection, setActiveSection] = useState("dashboard");
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const renderContent = () => {
     switch (activeSection) {
       case "dashboard":
@@ -35,7 +35,7 @@ const Dashboard = () => {
   };
   const handlelogout = () => {
     localStorage.removeItem("admin-username");
-    navigate("/")
+    navigate("/");
   };
   return (
     <AppShell

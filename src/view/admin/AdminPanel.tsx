@@ -18,24 +18,7 @@ const AdminPanel = () => {
   const [adminData, setAdminData] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch("https://holiday-point-backend-rx2e.onrender.com/admin-data")
-      .then((res) => res.json())
-      .then((data) => {
-        setAdminData(data);
-      })
-      .catch((error) => {
-        toast.error("Unable to fetch the data", {
-          position: "bottom-right",
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "light",
-        });
-      });
-  }, []);
+  
 
   const handleSubmit = async () => {
     try {
@@ -51,6 +34,8 @@ const AdminPanel = () => {
       );
 
       const data = await res.json();
+      console.log({data})
+      setAdminData(data);
 
       if (data.isAdmin) {
         toast.success(`Login successful! Welcome ${data.username} 🎉`, {
