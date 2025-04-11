@@ -29,8 +29,8 @@ const reviewSchema = new Schema({
 const Review = model("Review", reviewSchema);
 
 const adminDataSchema = new Schema({
-  username: { type: String, required: true },
-  password:{type : String,required : true},
+  admin_username: { type: String, required: true },
+  admin_password:{type : String,required : true},
 });
 const AdminData = model("admin-user", adminDataSchema);
 
@@ -140,19 +140,16 @@ app.post("/api/contact", async (req, res) => {
 // GET All Admin Data
 app.post("/admin-login", async (req, res) => {
   const { username, password } = req.body;
-  const uname = username.trim();
-  const pwd = password.trim();
-  console.log({uname,pwd})
   try {
     const admin = await AdminData.findOne({
-      username: uname,
-      password: pwd,
+      admin_username: username.trim(),
+      admin_password: password.trim(),
     });
     console.log({admin})
     if (admin) {
       console.log({admin})
       res.status(200).json({
-        username: admin.username,
+        username: admin.admin_username,
         isAdmin: true,
       });
     } else {
