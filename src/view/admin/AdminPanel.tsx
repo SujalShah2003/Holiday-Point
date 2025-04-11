@@ -17,17 +17,19 @@ import { useEffect, useState } from "react";
 import Logo from "../../assets/img/logo/Logo.png";
 import { useNavigate } from "react-router-dom";
 import AdminReview from "./AdminReview";
+import AdminContactUs from "./AdminContactUs";
 
 const AdminPanel = () => {
   const [opened, { toggle }] = useDisclosure();
   const [activeSection, setActiveSection] = useState("reviews");
   const navigate = useNavigate();
+
   const renderContent = () => {
     switch (activeSection) {
       case "reviews":
-        return <AdminReview/>;
-      case "users":
-        return <Text> Manage Users</Text>;
+        return <AdminReview />;
+      case "contact_us":
+        return <AdminContactUs />;
       case "settings":
         return <Text> Settings Panel</Text>;
       default:
@@ -74,25 +76,61 @@ const AdminPanel = () => {
         >
           <Stack mb="md">
             <UnstyledButton
-              onClick={() => setActiveSection("reviews")}
+              onClick={() => {
+                setActiveSection("reviews");
+                toggle();
+              }}
               w={"100%"}
               p={"sm"}
+              fw={600}
+              style={{
+                backgroundColor:
+                  activeSection === "reviews"
+                    ? "var(--mantine-color-gray-1)"
+                    : "transparent",
+                color: activeSection === "reviews" ? "black" : "gray",
+                borderRadius: 8,
+              }}
             >
               Reviews
             </UnstyledButton>
 
             <UnstyledButton
-              onClick={() => setActiveSection("users")}
+              onClick={() => {
+                setActiveSection("contact_us");
+                toggle();
+              }}
               w={"100%"}
               p={"sm"}
+              fw={600}
+              style={{
+                backgroundColor:
+                  activeSection === "contact_us"
+                    ? "var(--mantine-color-gray-1)"
+                    : "transparent",
+                color: activeSection === "users" ? "black" : "gray",
+                borderRadius: 8,
+              }}
             >
-              Users
+              Contact Us
             </UnstyledButton>
 
             <UnstyledButton
-              onClick={() => setActiveSection("settings")}
+              onClick={() => {
+                setActiveSection("settings");
+                toggle();
+              }}
               w={"100%"}
               p={"sm"}
+              fw={600}
+              style={{
+                backgroundColor:
+                  activeSection === "settings"
+                    ? "var(--mantine-color-gray-1)"
+                    : "transparent",
+                color: activeSection === "settings" ? "black" : "gray",
+                borderRadius: 8,
+              }}
             >
               Settings
             </UnstyledButton>
@@ -100,7 +138,7 @@ const AdminPanel = () => {
           <Box>
             <Flex align={"center"} gap={"sm"} style={{ cursor: "default" }}>
               <Avatar
-                radius="md"
+                radius="lg"
                 w={50}
                 h={50}
                 color={"var(--primary-color)"}

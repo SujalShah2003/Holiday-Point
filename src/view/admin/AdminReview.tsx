@@ -13,6 +13,8 @@ import {
   ActionIcon,
   Grid,
   GridCol,
+  Center,
+  Loader,
 } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 import { IconMapPin } from "@tabler/icons-react";
@@ -40,15 +42,18 @@ const AdminReview: React.FC = () => {
   ] = useDisclosure(false);
   const [selectedDeleteReviewId, setSelectedDeleteReviewId] =
     useState<String>("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("https://holiday-point-backend-rx2e.onrender.com/api/reviews")
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching reviews:", error);
+        setLoading(false);
       });
   }, []);
 
@@ -80,8 +85,8 @@ const AdminReview: React.FC = () => {
         prevReviews.filter((review) => review._id !== selectedDeleteReviewId)
       );
       closeDeleteModal();
-      toast.info("Review Deleted Successfully", {
-        position: "bottom-right",
+      toast.success("Review Deleted Successfully", {
+        position: "top-right",
         autoClose: 5000,
         hideProgressBar: true,
         closeOnClick: false,
@@ -92,7 +97,7 @@ const AdminReview: React.FC = () => {
       });
     } catch (error) {
       toast.error("Something went wrong", {
-        position: "bottom-right",
+        position: "top-right",
         autoClose: 5000,
         hideProgressBar: true,
         closeOnClick: false,
@@ -103,7 +108,14 @@ const AdminReview: React.FC = () => {
       });
     }
   };
-
+  
+  if (loading) {
+    return (
+      <Flex h="100%" w="100%" justify={"center"} align={"center"}>
+        <Loader color="blue" size="lg" type="dots" />
+      </Flex>
+    );
+  }
   return (
     <>
       {reviews?.length === 0 ? (
@@ -281,12 +293,17 @@ const AdminReview: React.FC = () => {
                 </Flex>
               </Flex>
               {/* Rating */}
-              <Rating
-                value={detailReview?.rating}
-                fractions={2}
-                readOnly
-                size="md"
-              />
+              <Flex direction={"column"} align={"end"} gap={4}>
+                <Rating
+                  value={detailReview?.rating}
+                  fractions={2}
+                  readOnly
+                  size="md"
+                />
+                <Text size="xs" c={"dimmed"}>
+                  {detailReview.time}
+                </Text>
+              </Flex>
             </Flex>
 
             {/* detailReview Details */}
@@ -305,6 +322,23 @@ const AdminReview: React.FC = () => {
                 </Text>
               </Box>
             </Box>
+
+            <Flex justify={"end"} w={"100%"}>
+              <Button
+                h={"auto"}
+                px={"md"}
+                py={"sm"}
+                color={"red"}
+                onClick={(e) => {
+                  close();
+                  setSelectedDeleteReviewId(detailReview?._id);
+                  openDeleteModal();
+                }}
+                style={{ zIndex: 55 }}
+              >
+                Delete
+              </Button>
+            </Flex>
           </Flex>
         </Modal>
       )}

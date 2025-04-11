@@ -116,6 +116,17 @@ app.post("/api/reviews", async (req, res) => {
   }
 });
 
+// GET All Contacts
+app.get("/api/contact-details", async (req, res) => {
+  try {
+    const reviews = await Contact.find(); // Fetch all reviews from MongoDB
+    res.status(200).json(reviews);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 // POST Contact Details
 app.post("/api/contact", async (req, res) => {
   try {
