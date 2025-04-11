@@ -56,7 +56,7 @@ const AdminContactUs = () => {
 
     try {
       const res = await fetch(
-        `https://holiday-point-backend-rx2e.onrender.com/api/reviews/${selectedDeleteId}`,
+        `https://holiday-point-backend-rx2e.onrender.com/api/contact-details/${selectedDeleteId}`,
         {
           method: "DELETE",
         }
@@ -198,7 +198,10 @@ const AdminContactUs = () => {
                       </Text>
                       <Button
                         color={"red"}
-                        onClick={() => setSelectedDeleteId(item?._id)}
+                        onClick={() =>{
+                          openDeleteModal()
+                          setSelectedDeleteId(item?._id)}
+                        } 
                       >
                         Delete
                       </Button>
@@ -213,10 +216,9 @@ const AdminContactUs = () => {
         opened={deleteModalOpened}
         onClose={closeDeleteModal}
         title="Are you sure?"
-        centered
         withCloseButton={false}
       >
-        <Text>Do you really want to delete this review?</Text>
+        <Text>Do you really want to delete this contact info?</Text>
         <Flex justify="end" gap="sm" mt="md">
           <Button variant="default" onClick={closeDeleteModal}>
             Cancel
