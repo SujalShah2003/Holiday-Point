@@ -30,10 +30,7 @@ const Review = model("Review", reviewSchema);
 
 const adminDataSchema = new Schema({
   username: { type: String, required: true },
-  location: { type: String, required: true },
-  rating: { type: Number, required: true },
-  reviewDetails: { type: String, required: true },
-  time: { type: String },
+  password:{type : String,required : true},
 });
 const AdminData = model("admin-user", adminDataSchema);
 
@@ -108,7 +105,7 @@ app.post("/api/reviews", async (req, res) => {
 // POST Contact Details
 app.post("/api/contact", async (req, res) => {
   try {
-    const { username,checkIn, checkOut, location, members, category, contact } = req.body;
+    const { username, checkIn, checkOut, location, members, category, contact } = req.body;
 
     if (!username || !checkIn || !checkOut || !location || !members || !category || !contact) {
       return res.status(400).json({ error: "All fields are required" });
@@ -143,21 +140,21 @@ app.post("/api/contact", async (req, res) => {
 // GET All Admin Data
 app.post("/admin-login", async (req, res) => {
   const { username, password } = req.body;
-  console.log({username,password})
+  console.log({ username, password })
   try {
     const admin = await AdminData.findOne({
-      admin_username: username,
-      admin_password: password,
+      username: username,
+      password: password,
     });
-    
+
     if (admin) {
+      console.log({admin})
       res.status(200).json({
-        username: admin.admin_username,
+        username: admin.username,
         isAdmin: true,
       });
     } else {
       res.status(200).json({
-        username: "",
         isAdmin: false,
       });
     }
