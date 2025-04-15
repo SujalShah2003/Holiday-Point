@@ -12,6 +12,7 @@ import {
 import { IconCheck } from "@tabler/icons-react";
 import { LocationOption } from "../helper/data";
 import { toast } from "react-toastify";
+import { useDisclosure } from "@mantine/hooks";
 const AddReviewModal = ({
   opened,
   close,
@@ -24,31 +25,34 @@ const AddReviewModal = ({
   const [rating, setRating] = useState<number | null>(0);
   const [reviewDetails, setReviewDetails] = useState("");
   const [error, setError] = useState(false);
-
-  // @ts-ignore
-  const checkIcon = <IconCheck size={20} />;
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
-    console.log({name,location,rating,reviewDetails})
     if (!name || !location || !rating || !reviewDetails) {
       setError(true);
       return;
     }
 
     try {
-      const response = await fetch("https://holiday-point-backend-rx2e.onrender.com/api/reviews", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: name,
-          location,
-          rating,
-          reviewDetails,
-        }),
-      });
+      setLoading(true);
+      const response = await fetch(
+        "https://holiday-point-backend-rx2e.onrender.com/api/reviews",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: name,
+            location,
+            rating,
+            reviewDetails,
+          }),
+        }
+      );
 
       if (!response.ok) throw new Error("Failed to add review");
 
+      setLoading(false);
+      close();
       toast.success("Thank you for your review !!", {
         position: "top-right",
         autoClose: 5000,
@@ -66,15 +70,24 @@ const AddReviewModal = ({
       setRating(0);
       setReviewDetails("");
       setError(false);
-      close();
     } catch (err) {
-      console.error("Error:", err);
-      alert("Failed to submit review. Please try again.");
+      setLoading(false);
+      toast.error("Failed to submit review. Please try again.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } finally {
+      setLoading(false);
     }
   };
   return (
     <>
-    
       <Modal
         opened={opened}
         onClose={close}
@@ -131,6 +144,8 @@ const AddReviewModal = ({
             p={"sm"}
             h={"max-content"}
             bg={"var(--primary-color)"}
+            loading={loading}
+            loaderProps={{ type: "dots" }}
           >
             Submit Review
           </Button>

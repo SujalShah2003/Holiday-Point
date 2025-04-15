@@ -55,8 +55,7 @@ const AdminPanel = () => {
       bg={"var(--mantine-color-gray-1)"}
     >
       <AppShell.Header>
-        <Group h="100%" px="md">
-          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+        <Flex h="100%" px="md" align={"center"} justify={"space-between"}>
           <Image
             src={Logo}
             w={50}
@@ -64,7 +63,8 @@ const AdminPanel = () => {
             alt="Logo"
             ml={{ base: "unset", xs: "md" }}
           />
-        </Group>
+          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+        </Flex>
       </AppShell.Header>
 
       <AppShell.Navbar p="md">

@@ -87,6 +87,7 @@ const MobileNavbarHeader = ({ scrollToSection }: MobileNavbarHeaderProps) => {
         h={"max-content"}
         fz={"md"}
         bg="black"
+        color="white"
         onClick={() => scrollToSection("contact_us")}
       >
         Contact Us

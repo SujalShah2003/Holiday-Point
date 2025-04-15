@@ -16,6 +16,7 @@ import HimachalPradesh from "../../assets/img/domestic-place/Himachal-Pradesh.jp
 import Goa from "../../assets/img/domestic-place/Goa.jpg";
 import Kerala from "../../assets/img/domestic-place/Kerala.jpg";
 import Kumbhalgarh from "../../assets/img/domestic-place/Kumbhalgarh.jpg";
+import Rajasthan from "../../assets/img/domestic-place/Rajasthan.jpeg";
 import JammuKashmir from "../../assets/img/domestic-place/Jammu-Kashmir.jpg";
 
 const placeData = [
@@ -23,7 +24,7 @@ const placeData = [
   { name: "Himachal Pradesh", image: HimachalPradesh },
   { name: "Goa", image: Goa },
   { name: "Kerala", image: Kerala },
-  { name: "Kumbhalgarh", image: Kumbhalgarh },
+  { name: "Rajasthan", image: Rajasthan },
   { name: "Jammu & Kashmir", image: JammuKashmir },
 ];
 

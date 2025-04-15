@@ -28,7 +28,7 @@ const AboutUs = () => {
               <Text span fw={700}>
                 India and top International destinations
               </Text>{" "}
-              like Bali, Dubai, and singapur. From luxury resorts to
+              like Bali, Dubai, and singapore. From luxury resorts to
               budget-friendly stays, enjoy exclusive deals,
               <Text span fw={700}>
                 {" "}
@@ -82,7 +82,7 @@ const AboutUs = () => {
             >
               <Image
                 src={TopHotels}
-                w={350}
+                w={325}
                 h={250}
                 radius="xl"
                 style={{
@@ -95,8 +95,8 @@ const AboutUs = () => {
             <Box
               w="80%"
               pos="absolute"
-              top="35%"
-              right="5%"
+              top="30%"
+              right="0%"
               style={{ zIndex: 2 }}
             >
               <Image

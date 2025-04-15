@@ -12,7 +12,7 @@ export const LocationOption = [
       { value: "Himachal Pradesh", label: "Himachal Pradesh" },
       { value: "Goa", label: "Goa" },
       { value: "Kerala", label: "Kerala" },
-      { value: "Kumbhalgarh", label: "Kumbhalgarh" },
+      { value: "Rajasthan", label: "Rajasthan" },
       { value: "Jammu Kashmir", label: "Jammu Kashmir" },
     ],
   },

@@ -19,7 +19,7 @@ const data = [
   {
     servicename: "Tourist Visa",
     describe:
-      "Get your hassle-free tourist visa for India and other countries with our quick and reliable services.",
+      "Get your hassle-free tourist visa for countries like Dubai, Singapore and many more with our quick and reliable services.",
   },
 ];
 

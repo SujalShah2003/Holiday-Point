@@ -19,6 +19,7 @@ import { LocationOption, happyClient } from "../../helper/data";
 import { Carousel } from "@mantine/carousel";
 import { IconInfoSmall } from "@tabler/icons-react";
 import { toast } from "react-toastify";
+import { useState } from "react";
 
 type ContactFormValues = {
   username: string | null;
@@ -31,6 +32,7 @@ type ContactFormValues = {
 };
 
 const ContactUs = () => {
+  const [loading, setLoading] = useState(false);
   const form = useForm({
     initialValues: {
       username: "",
@@ -59,6 +61,7 @@ const ContactUs = () => {
     form: UseFormReturnType<ContactFormValues>
   ): Promise<void> => {
     try {
+      setLoading(true);
       const response = await fetch(
         "https://holiday-point-backend-rx2e.onrender.com/api/contact",
         {
@@ -67,9 +70,9 @@ const ContactUs = () => {
           body: JSON.stringify(values),
         }
       );
-  
+
       const data: { error?: string; message?: string } = await response.json();
-  
+
       if (response.ok) {
         toast.success(
           "Our team will get back to you within 24 hours. Thank You !!",
@@ -84,13 +87,35 @@ const ContactUs = () => {
             theme: "light",
           }
         );
+        setLoading(false);
         form.reset();
       } else {
-        alert(data.error || "Something went wrong. Please try again.");
+        setLoading(false);
+        toast.error(data.error || "Something went wrong. Please try again.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     } catch (error) {
-      console.error("Submit error:", error);
-      alert("Server error. Please try again later.");
+      setLoading(false);
+      toast.error("Server error. Please try again later.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -219,8 +244,10 @@ const ContactUs = () => {
                 <Flex
                   w={"100%"}
                   gap={"md"}
+                  h={"100%"}
                   wrap={{ base: "wrap", sm: "nowrap" }}
                   justify={"space-between"}
+                  align={"center"}
                 >
                   <TextInput
                     w={"100%"}
@@ -229,7 +256,7 @@ const ContactUs = () => {
                     placeholder="Enter your full name"
                     {...form.getInputProps("username")}
                   />
-                  <Flex align="center" gap="xs" w={"100%"} justify={"center"}>
+                  <Flex align="center" gap="xs" mt={"lg"} w={"100%"} justify={"center"}>
                     <Button
                       radius={"50%"}
                       onClick={() =>
@@ -306,7 +333,14 @@ const ContactUs = () => {
                 </Flex>
 
                 {/* Submit Button */}
-                <Button type="submit" fullWidth mt="md" bg={"black"}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  mt="md"
+                  bg={"black"}
+                  loading={loading}
+                  loaderProps={{ type: "dots" }}
+                >
                   Book Now
                 </Button>
               </Stack>
