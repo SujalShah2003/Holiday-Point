@@ -10,6 +10,7 @@ type BannerProps = {
 const Banner = ({ scrollToSection }: BannerProps) => {
   return (
     <>
+    
       <Container
         size="full"
         style={{
